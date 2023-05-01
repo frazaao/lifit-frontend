@@ -1,0 +1,26 @@
+import {{pascalCase name}}Domain from "../types/{{pascalCase name}}Domain";
+import {{pascalCase name}}Persistence from "../types/{{pascalCase name}}Persistence";
+
+class {{pascalCase name}}Mapper {
+    toDomain({{lowerCase name}}: {{pascalCase name}}Persistence): {{pascalCase name}}Domain {
+        return {
+            id: {{lowerCase name}}.id,
+            active: {{lowerCase name}}.ativo,
+            createdAt: {{lowerCase name}}.created_at,
+            updatedAt: {{lowerCase name}}.updated_at,
+            deletedAt: {{lowerCase name}}.deleted_at,
+        };
+    }
+
+    toPersistence({{lowerCase name}}: {{pascalCase name}}Domain): {{pascalCase name}}Persistence {
+        return {
+            id: {{lowerCase name}}.id,
+            ativo: {{lowerCase name}}.active,
+            created_at: {{lowerCase name}}.createdAt,
+            updated_at: {{lowerCase name}}.updatedAt,
+            deleted_at: {{lowerCase name}}.deletedAt,
+        };
+    }
+}
+
+export default new {{pascalCase name}}Mapper();

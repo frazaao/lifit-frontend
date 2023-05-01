@@ -1,0 +1,10 @@
+import { z } from "zod";
+import {{pascalCase name}}Domain from "../types/{{pascalCase name}}Domain";
+
+const {{lowerCase name}}ZodSchema: z.ZodType<{{pascalCase name}}Domain> = z.object({
+    //
+});
+
+export default {{pascalCase name}}ZodSchema;
+
+export type {{pascalCase name}}ZodSchema = z.infer<typeof {{lowerCase name}}ZodSchema>;

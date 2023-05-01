@@ -1,0 +1,53 @@
+import { describe, expect, it } from "vitest";
+import {{pascalCase name}}Domain from "../types/{{pascalCase name}}Domain";
+import {{pascalCase name}}Persistence from "../types/{{pascalCase name}}Persistence";
+import {{pascalCase name}}Mapper from "./{{pascalCase name}}Mapper";
+
+describe("{{pascalCase name}}Mapper", () => {
+    it("should return {{pascalCase name}}Domain when toDomain method is called", () => {
+        const {{lowerCase name}}Persistence: {{pascalCase name}}Persistence = {
+            id: 1,
+            ativo: true,
+            created_at: new Date("12-12-12 12:00:00"),
+            updated_at: new Date("12-12-12 12:00:00"),
+            deleted_at: new Date("12-12-12 12:00:00"),
+        };
+
+        const {{lowerCase name}}ToDomain = {{pascalCase name}}Mapper.toDomain({{lowerCase name}}Persistence);
+
+        const {{lowerCase name}}ToDomainExpected: {{pascalCase name}}Domain = {
+            id: 1,
+            active: true,
+            createdAt: new Date("12-12-12 12:00:00"),
+            updatedAt: new Date("12-12-12 12:00:00"),
+            deletedAt: new Date("12-12-12 12:00:00"),
+        };
+
+        expect({{lowerCase name}}ToDomain).toMatchObject({{lowerCase name}}ToDomainExpected);
+    });
+
+    it("should return {{pascalCase name}}Persistence when toPersistence method is called", () => {
+        const {{lowerCase name}}Domain: {{pascalCase name}}Domain = {
+            id: 1,
+            active: true,
+            createdAt: new Date("12-12-12 12:00:00"),
+            updatedAt: new Date("12-12-12 12:00:00"),
+            deletedAt: new Date("12-12-12 12:00:00"),
+        };
+
+        const {{lowerCase name}}ToPersistence =
+            {{pascalCase name}}Mapper.toPersistence({{lowerCase name}}Domain);
+
+        const {{lowerCase name}}ToPersistenceExpected: {{pascalCase name}}Persistence = {
+            id: 1,
+            ativo: true,
+            created_at: new Date("12-12-12 12:00:00"),
+            updated_at: new Date("12-12-12 12:00:00"),
+            deleted_at: new Date("12-12-12 12:00:00"),
+        };
+
+        expect({{lowerCase name}}ToPersistence).toMatchObject(
+            {{lowerCase name}}ToPersistenceExpected
+        );
+    });
+});
