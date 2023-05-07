@@ -27,14 +27,14 @@ const carouselItems = [
 export default function AppPage() {
     return (
         <>
-            <main className="flex flex-col justify-center items-center w-full h-screen px-11">
+            <main className="flex flex-col justify-between items-center w-full h-screen px-11 py-20">
                 <div className="mb-12">
                     <Logo />
                 </div>
 
                 <ReceptionSlider items={carouselItems} />
 
-                <Link href="/app/login" className="block w-full mt-8">
+                <Link href="/app/register" className="block w-full mt-8">
                     <Button className="w-full h-16 text-2xl">
                         Criar uma conta
                     </Button>
@@ -42,7 +42,7 @@ export default function AppPage() {
                 <span className="mt-2 text-lg">
                     Já possui uma conta?
                     <Link
-                        href="/app/register"
+                        href="/app/login"
                         className="text-purple-primary  font-bold ml-1"
                     >
                         Fazer login
