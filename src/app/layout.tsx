@@ -15,11 +15,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="pt_BR">
-            <body
-                className={`${signika.className} bg-bg-default text-text-default`}
-            >
-                {children}
-            </body>
+            <body className={`${signika.className}`}>{children}</body>
         </html>
     );
 }

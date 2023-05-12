@@ -1,11 +1,17 @@
 "use client";
 
-import { ToastContextProvider } from "@/hooks/useToast";
+import theme from "@/styles/theme";
+import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 
 interface AppLayoutProps {
     children: React.ReactNode;
 }
 
 export default function AppLayout({ children }: AppLayoutProps) {
-    return <ToastContextProvider>{children}</ToastContextProvider>;
+    return (
+        <ChakraProvider theme={theme}>
+            <CSSReset />
+            {children}
+        </ChakraProvider>
+    );
 }

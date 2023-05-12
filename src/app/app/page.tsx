@@ -1,6 +1,8 @@
-import Button from "@/components/Button";
+"use client";
+
 import Logo from "@/components/Logo";
 import ReceptionSlider from "@/components/ReceptionSlider";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import Link from "next/link";
 
 const carouselItems = [
@@ -27,28 +29,52 @@ const carouselItems = [
 export default function AppPage() {
     return (
         <>
-            <main className="flex flex-col justify-between items-center w-full h-screen px-11 py-20">
-                <div className="mb-12">
+            <Flex
+                direction="column"
+                justify="space-between"
+                align="center"
+                w="full"
+                h="100vh"
+                px="10"
+                py="20"
+            >
+                <Box mb="12">
                     <Logo />
-                </div>
+                </Box>
 
                 <ReceptionSlider items={carouselItems} />
 
-                <Link href="/app/register" className="block w-full mt-8">
-                    <Button className="w-full h-16 text-2xl">
+                <Text
+                    as={Link}
+                    display="block"
+                    w="full"
+                    mt="8"
+                    href="/app/register"
+                >
+                    <Button
+                        w="full"
+                        h="16"
+                        fontSize="xl"
+                        bg="brand.green"
+                        color="brand.white"
+                    >
                         Criar uma conta
                     </Button>
-                </Link>
-                <span className="mt-2 text-lg">
+                </Text>
+
+                <Box mt="2" fontSize="lg">
                     Já possui uma conta?
-                    <Link
+                    <Text
+                        as={Link}
+                        color="brand.purple"
+                        fontWeight="bold"
+                        ml="1"
                         href="/app/login"
-                        className="text-purple-primary  font-bold ml-1"
                     >
                         Fazer login
-                    </Link>
-                </span>
-            </main>
+                    </Text>
+                </Box>
+            </Flex>
         </>
     );
 }

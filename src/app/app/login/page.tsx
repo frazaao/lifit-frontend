@@ -1,10 +1,8 @@
 "use client";
 
 import FormControl from "@/components/FormControl";
-import Input from "@/components/Input";
 import Logo from "@/components/Logo";
 import { Mail, Lock, ChevronLeft } from "lucide-react";
-import Button from "@/components/Button";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import AuthService from "@/services/app/domain/auth/services/AuthService";
@@ -12,7 +10,20 @@ import authZodSchema, {
     AuthZodSchema,
 } from "@/services/app/domain/auth/schemas/AuthZodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import useToast from "@/hooks/useToast";
+import {
+    Flex,
+    Heading,
+    Stack,
+    Icon,
+    Text,
+    Box,
+    useToast,
+    Input,
+    InputGroup,
+    InputLeftAddon,
+    Button,
+} from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
     const {
@@ -23,22 +34,28 @@ export default function LoginPage() {
         resolver: zodResolver(authZodSchema),
     });
 
-    const { toast } = useToast();
+    const toast = useToast();
+
+    const router = useRouter();
 
     async function submitForm(data: AuthZodSchema) {
         try {
             await AuthService.login(data);
 
             toast({
-                type: "success",
+                status: "success",
                 title: "Login realizado com sucesso",
+                position: "top-right",
                 description:
                     "Você será redirecionado para a tela inicial da aplicação",
             });
+
+            router.push("/app/home");
         } catch {
             toast({
-                type: "error",
+                status: "error",
                 title: "Email ou senha incorreta",
+                position: "top-right",
                 description:
                     "Verifique o email e senha digitados e tente novamente",
             });
@@ -47,52 +64,93 @@ export default function LoginPage() {
 
     return (
         <>
-            <main className="flex flex-col justify-center items-center w-full h-screen py-20 px-11">
+            <Flex
+                align="center"
+                justify="center"
+                w="full"
+                h="100vh"
+                py="20"
+                px="10"
+                direction="column"
+            >
                 <Logo />
 
-                <h1 className="text-[2.5rem] font-bold text-green-primary mt-14">
-                    Fazer login
-                </h1>
-
-                <form
-                    onSubmit={handleSubmit(submitForm)}
-                    className="w-full flex flex-col justify-between flex-1 gap-6 mt-8"
+                <Heading
+                    fontSize="2.5rem"
+                    fontWeight="bold"
+                    color="brand.green"
+                    mt="14"
                 >
-                    <div className="flex flex-col gap-6">
+                    Fazer login
+                </Heading>
+
+                <Flex
+                    as="form"
+                    direction="column"
+                    justify="space-between"
+                    flex="1"
+                    gap="6"
+                    mt="8"
+                    w="full"
+                    onSubmit={handleSubmit(submitForm)}
+                >
+                    <Stack spacing="6">
                         <FormControl error={errors.email?.message}>
-                            <Input
-                                leftIcon={<Mail className="w-5" />}
-                                placeholder="Email"
-                                type="text"
-                                {...register("email")}
-                            />
+                            <InputGroup>
+                                <InputLeftAddon>
+                                    <Icon as={Mail} w="1.25rem" />
+                                </InputLeftAddon>
+                                <Input
+                                    placeholder="Email"
+                                    type="text"
+                                    {...register("email")}
+                                />
+                            </InputGroup>
                         </FormControl>
 
                         <FormControl error={errors.password?.message}>
-                            <Input
-                                leftIcon={<Lock className="w-5" />}
-                                placeholder="Senha"
-                                type="password"
-                                {...register("password")}
-                            />
+                            <InputGroup>
+                                <InputLeftAddon>
+                                    <Icon as={Lock} w="1.25rem" />
+                                </InputLeftAddon>
+                                <Input
+                                    placeholder="Senha"
+                                    type="password"
+                                    {...register("password")}
+                                />
+                            </InputGroup>
                         </FormControl>
-                    </div>
+                    </Stack>
 
-                    <div className="w-full">
-                        <Button size="lg" className="h-16" type="submit">
+                    <Box w="full">
+                        <Button
+                            h="16"
+                            w="full"
+                            size="lg"
+                            bg="brand.green"
+                            color="brand.white"
+                            fontSize="1.5rem"
+                            type="submit"
+                        >
                             Entrar
                         </Button>
 
-                        <Link
+                        <Text
+                            as={Link}
                             href="/app"
-                            className="flex items-center justify-center text-lg mt-2"
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
+                            fontSize="lg"
+                            mt="2"
+                            color="brand.heading"
                         >
                             <ChevronLeft />
                             Voltar
-                        </Link>
-                    </div>
-                </form>
-            </main>
+                        </Text>
+                    </Box>
+                </Flex>
+            </Flex>
         </>
     );
 }

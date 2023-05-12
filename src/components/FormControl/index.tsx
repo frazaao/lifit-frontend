@@ -1,3 +1,10 @@
+import {
+    Flex,
+    FormErrorMessage,
+    FormHelperText,
+    FormLabel,
+    FormControl as ChakraFormControl,
+} from "@chakra-ui/react";
 import { ReactElement } from "react";
 import useController from "./useController";
 
@@ -18,12 +25,27 @@ export default function FormControl({
 
     return (
         <>
-            <div data-testid="FormControl" className="w-full flex flex-col">
-                <label htmlFor={children.props.name}>{label}</label>
+            <Flex
+                as={ChakraFormControl}
+                direction="column"
+                w="full"
+                data-testid="FormControl"
+                isInvalid={!!error}
+            >
+                {!!label && (
+                    <FormLabel htmlFor={children.props.name}>{label}</FormLabel>
+                )}
+
                 {children}
-                <span>{hint}</span>
-                <span className="text-red-primary">{error}</span>
-            </div>
+
+                {!!hint && <FormHelperText>{hint}</FormHelperText>}
+
+                {!!error && (
+                    <FormErrorMessage className="text-red-primary">
+                        {error}
+                    </FormErrorMessage>
+                )}
+            </Flex>
         </>
     );
 }

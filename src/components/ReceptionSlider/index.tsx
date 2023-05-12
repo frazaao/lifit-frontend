@@ -1,5 +1,6 @@
 "use client";
 
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import useController from "./useController";
 
 interface Items {
@@ -17,44 +18,65 @@ export default function ReceptionSlider({ items = [] }: ReceptionSliderProps) {
 
     return (
         <>
-            <div data-testid="ReceptionSlider" className="w-full">
-                <div
-                    className="flex overflow-y-scroll scroll-mandatory without-scrollbar"
+            <Box w="full" data-testid="ReceptionSlider">
+                <Flex
+                    overflowY="scroll"
+                    className="scroll-mandatory without-scrollbar"
                     ref={carouselWrapper}
                     onScroll={() =>
                         handleScroll(carouselWrapper.current?.scrollLeft)
                     }
                 >
                     {items.map((item, index) => (
-                        <div
-                            key={index}
-                            className="w-[100%] flex-shrink-0 flex flex-col items-center scroll-align-center"
+                        <Flex
+                            key={item.title}
+                            w="100%"
+                            flexShrink="0"
+                            direction="column"
+                            align="center"
+                            scrollSnapAlign="center"
                         >
                             <img src={item.image} alt={item.title} />
 
-                            <h3 className="text-text-heading font-semibold text-2xl text-center mb-4 mt-6">
+                            <Heading
+                                color="gray.900"
+                                fontWeight="semibold"
+                                fontSize="2xl"
+                                textAlign="center"
+                                mb="4"
+                                mt="6"
+                            >
                                 {item.title}
-                            </h3>
+                            </Heading>
 
-                            <p className="text-center text-text-default text-lg mb-6">
+                            <Text
+                                textAlign="center"
+                                color="gray.500"
+                                fontSize="lg"
+                                mb="6"
+                            >
                                 {item.description}
-                            </p>
-                        </div>
+                            </Text>
+                        </Flex>
                     ))}
-                </div>
-                <div className="flex gap-1 justify-center items-center">
+                </Flex>
+                <Flex gap="1" justify="center" align="center">
                     {items.map((_, index) => (
-                        <div
+                        <Box
                             key={index}
-                            className={
+                            w={activeIndex === index ? "8" : "5"}
+                            h="5"
+                            bg={
                                 activeIndex === index
-                                    ? `bg-purple-primary w-8 h-5 rounded-3xl transition-all`
-                                    : `bg-purple-primary/30 w-5 h-5 rounded-3xl transition-all`
+                                    ? "brand.purple"
+                                    : "purple.200"
                             }
+                            borderRadius="3xl"
+                            transition="all .1s ease-in-out"
                         />
                     ))}
-                </div>
-            </div>
+                </Flex>
+            </Box>
         </>
     );
 }
