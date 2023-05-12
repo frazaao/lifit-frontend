@@ -1,15 +1,15 @@
-import { Meta, StoryObj } from "@storybook/react";
-import ReceptionSlider from ".";
+//import { Meta, StoryObj } from "@storybook/react";
+//import ReceptionSlider from ".";
 
-const meta: Meta<typeof ReceptionSlider> = {
-  title: "ReceptionSlider",
-  component: ReceptionSlider,
-};
+//const meta: Meta<typeof ReceptionSlider> = {
+//  title: "ReceptionSlider",
+//  component: ReceptionSlider,
+//};
 
-export default meta;
+//export default meta;
 
-type Story = StoryObj<typeof ReceptionSlider>;
+//type Story = StoryObj<typeof ReceptionSlider>;
 
-export const Default: Story = {
-  args: {},
-};
+//export const Default: Story = {
+//  args: {},
+//};
