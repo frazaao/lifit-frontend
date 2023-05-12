@@ -12,6 +12,7 @@ import authZodSchema, {
     AuthZodSchema,
 } from "@/services/app/domain/auth/schemas/AuthZodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import useToast from "@/hooks/useToast";
 
 export default function LoginPage() {
     const {
@@ -22,8 +23,26 @@ export default function LoginPage() {
         resolver: zodResolver(authZodSchema),
     });
 
-    function submitForm(data: AuthZodSchema) {
-        AuthService.login(data);
+    const { toast } = useToast();
+
+    async function submitForm(data: AuthZodSchema) {
+        try {
+            await AuthService.login(data);
+
+            toast({
+                type: "success",
+                title: "Login realizado com sucesso",
+                description:
+                    "Você será redirecionado para a tela inicial da aplicação",
+            });
+        } catch {
+            toast({
+                type: "error",
+                title: "Email ou senha incorreta",
+                description:
+                    "Verifique o email e senha digitados e tente novamente",
+            });
+        }
     }
 
     return (
