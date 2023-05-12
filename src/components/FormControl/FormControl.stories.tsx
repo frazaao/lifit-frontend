@@ -1,15 +1,15 @@
-import { Meta, StoryObj } from "@storybook/react";
-import FormControl from ".";
+//import { Meta, StoryObj } from "@storybook/react";
+//import FormControl from ".";
 
-const meta: Meta<typeof FormControl> = {
-  title: "FormControl",
-  component: FormControl,
-};
+//const meta: Meta<typeof FormControl> = {
+//  title: "FormControl",
+//  component: FormControl,
+//};
 
-export default meta;
+//export default meta;
 
-type Story = StoryObj<typeof FormControl>;
+//type Story = StoryObj<typeof FormControl>;
 
-export const Default: Story = {
-  args: {},
-};
+//export const Default: Story = {
+//  args: {},
+//};
