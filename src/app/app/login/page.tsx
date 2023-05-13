@@ -29,7 +29,7 @@ export default function LoginPage() {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isSubmitting },
     } = useForm<AuthZodSchema>({
         resolver: zodResolver(authZodSchema),
     });
@@ -50,7 +50,7 @@ export default function LoginPage() {
                     "Você será redirecionado para a tela inicial da aplicação",
             });
 
-            router.push("/app/home");
+            router.push("/app/platform/home");
         } catch {
             toast({
                 status: "error",
@@ -131,6 +131,7 @@ export default function LoginPage() {
                             color="brand.white"
                             fontSize="1.5rem"
                             type="submit"
+                            isLoading={isSubmitting}
                         >
                             Entrar
                         </Button>

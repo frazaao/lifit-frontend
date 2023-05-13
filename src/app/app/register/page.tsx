@@ -27,7 +27,7 @@ export default function RegisterPage() {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isSubmitting },
     } = useForm<RegisterZodSchema>({
         resolver: zodResolver(registerZodSchema),
     });
@@ -55,7 +55,7 @@ export default function RegisterPage() {
                     color="brand.green"
                     mt="14"
                 >
-                    Criar uma conta
+                    Registrar
                 </Heading>
 
                 <Flex
@@ -130,8 +130,9 @@ export default function RegisterPage() {
                             bg="brand.green"
                             color="brand.white"
                             fontSize="1.5rem"
+                            isLoading={isSubmitting}
                         >
-                            Entrar
+                            Criar conta
                         </Button>
 
                         <Text

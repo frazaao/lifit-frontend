@@ -1,10 +1,24 @@
 import { Box, Flex } from "@chakra-ui/react";
 import BottomMenuItem from "../BottomMenuItem";
 import useController from "./useController";
-import { Calendar, Pencil, Home, Utensils, MessageCircle } from "lucide-react";
+import * as Lucide from "lucide-react";
 
-export default function BottomMenu() {
+interface BottomMenuProps {
+    items: {
+        title: string;
+        icon: string;
+        href: string;
+    }[];
+}
+
+export default function BottomMenu({ items }: BottomMenuProps) {
     const {} = useController();
+
+    function getLucideIcon(icon: string): React.ReactNode {
+        const Icon = Lucide[icon as keyof typeof Lucide];
+        // @ts-ignore
+        return <Icon />;
+    }
 
     return (
         <>
@@ -18,31 +32,14 @@ export default function BottomMenu() {
                 shadow="dark-lg"
             >
                 <Flex as="ul" w="100%" gap="2">
-                    <BottomMenuItem
-                        title="Agenda"
-                        icon={<Calendar />}
-                        href="/app/agenda"
-                    />
-                    <BottomMenuItem
-                        title="Registros"
-                        icon={<Pencil />}
-                        href="/app/registros"
-                    />
-                    <BottomMenuItem
-                        title="Início"
-                        icon={<Home />}
-                        href="/app/home"
-                    />
-                    <BottomMenuItem
-                        title="Cardápios"
-                        icon={<Utensils />}
-                        href="/app/meal"
-                    />
-                    <BottomMenuItem
-                        title="Mensagens"
-                        icon={<MessageCircle />}
-                        href="/app/chat"
-                    />
+                    {items.map(({ title, icon, href }) => (
+                        <BottomMenuItem
+                            key={title}
+                            title={title}
+                            icon={getLucideIcon(icon)}
+                            href={href}
+                        />
+                    ))}
                 </Flex>
             </Box>
         </>

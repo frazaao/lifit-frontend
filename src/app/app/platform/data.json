@@ -1,0 +1,27 @@
+[
+    {
+        "title": "Agenda",
+        "icon": "Calendar",
+        "href": "/app/platform/agenda"
+    },
+    {
+        "title": "Registros",
+        "icon": "Pencil",
+        "href": "/app/platform/registries"
+    },
+    {
+        "title": "Início",
+        "icon": "Home",
+        "href": "/app/platform/home"
+    },
+    {
+        "title": "Cardápios",
+        "icon": "Utensils",
+        "href": "/app/platform/menus"
+    },
+    {
+        "title": "Mensagens",
+        "icon": "MessageCircle",
+        "href": "/app/platform/chat"
+    }
+]
