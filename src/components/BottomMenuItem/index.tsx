@@ -18,7 +18,7 @@ export default function BottomMenuItem({
 
     const pathname = usePathname();
 
-    const isActive = href === pathname;
+    const isActive = pathname.includes(href);
 
     return (
         <>
