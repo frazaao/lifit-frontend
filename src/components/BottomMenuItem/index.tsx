@@ -29,11 +29,16 @@ export default function BottomMenuItem({
                     align="center"
                     direction="column"
                     color={isActive ? "brand.green" : "brand.text"}
-                    borderBottom={"4px solid"}
-                    borderColor={isActive ? "brand.green" : "transparent"}
                 >
                     {icon}
                     <Text fontSize="0.75rem">{title}</Text>
+                    <Box
+                        w="12px"
+                        h="6px"
+                        bg="brand.green"
+                        rounded="full"
+                        opacity={isActive ? "1" : "0"}
+                    />
                 </Flex>
             </Box>
         </>
