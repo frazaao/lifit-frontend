@@ -1,8 +1,16 @@
 import { Avatar, Flex, Text } from "@chakra-ui/react";
 import useController from "./useController";
 
-export default function UserHeader() {
-    const {} = useController();
+interface UserHeaderProps {
+    fullname: string;
+    avatarUrl?: string;
+}
+
+export default function UserHeader({
+    fullname = "",
+    avatarUrl = "",
+}: UserHeaderProps) {
+    const { firstName, greetings, getGreetings } = useController({ fullname });
 
     return (
         <>
@@ -17,11 +25,15 @@ export default function UserHeader() {
                 py="2"
                 shadow="base"
             >
-                <Text ml="4">Bom dia, Jhon</Text>
+                <Text ml="4">
+                    {firstName && `${greetings[getGreetings()]}, ${firstName}`}
+                </Text>
                 <Avatar
                     size="sm"
-                    name="Jhon Doe"
-                    src="https://github.com/frazaao.png"
+                    name={fullname}
+                    src={avatarUrl}
+                    bg="brand.green"
+                    color="brand.white"
                 />
             </Flex>
         </>

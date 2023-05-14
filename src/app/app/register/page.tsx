@@ -17,10 +17,13 @@ import {
     InputLeftAddon,
     Stack,
     Text,
+    useToast,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AxiosError } from "axios";
 import { ChevronLeft, Lock, Mail, User } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 export default function RegisterPage() {
@@ -28,12 +31,57 @@ export default function RegisterPage() {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
+        setError,
     } = useForm<RegisterZodSchema>({
         resolver: zodResolver(registerZodSchema),
     });
 
-    function submitForm(data: RegisterZodSchema) {
-        AuthService.register(data);
+    const router = useRouter();
+
+    const toast = useToast();
+
+    async function submitForm(data: RegisterZodSchema) {
+        try {
+            await AuthService.register(data);
+
+            toast({
+                title: "Registro feito com sucesso!",
+                description:
+                    "Você será redirecionado à página inicial da aplicação",
+                status: "success",
+                position: "top-right",
+            });
+
+            router.push("/app/platform/home");
+        } catch (e) {
+            if (e instanceof AxiosError) {
+                if (e.response?.data.errors.email) {
+                    setError("email", {
+                        message: e.response?.data.errors.email[0],
+                    });
+                }
+
+                if (e.response?.data.errors.name) {
+                    setError("name", {
+                        message: e.response?.data.errors.name[0],
+                    });
+                }
+
+                if (e.response?.data.errors.password) {
+                    setError("password", {
+                        message: e.response?.data.errors.password[0],
+                    });
+                }
+            } else {
+                toast({
+                    title: "Não foi possível criar o usuário.",
+                    description:
+                        "Ocorreu um erro durante a criação do usuário, por favor tente novamente. Caso o erro persista, entre em contato com a equipe de suporte",
+                    status: "error",
+                    position: "top-right",
+                });
+            }
+        }
     }
 
     return (
@@ -59,6 +107,7 @@ export default function RegisterPage() {
                 </Heading>
 
                 <Flex
+                    as="form"
                     direction="column"
                     justify="space-between"
                     flex="1"

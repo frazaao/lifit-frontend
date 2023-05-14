@@ -1,5 +1,6 @@
 import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import useController from "./useController";
+import Link from "next/link";
 
 export default function RecipeSuggestion() {
     const {} = useController();
@@ -7,6 +8,8 @@ export default function RecipeSuggestion() {
     return (
         <>
             <Box
+                as={Link}
+                href="/app/platform/recipes/1"
                 data-testid="RecipeSuggestion"
                 position="relative"
                 rounded="2xl"
@@ -22,6 +25,7 @@ export default function RecipeSuggestion() {
                     zIndex="0"
                     objectFit="cover"
                     height="300px"
+                    width="100%"
                 />
 
                 <Flex

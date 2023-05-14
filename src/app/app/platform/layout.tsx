@@ -11,7 +11,13 @@ interface PlatformLayoutProps {
 export default function PlatformLayout({ children }: PlatformLayoutProps) {
     return (
         <>
-            <Box pb="78px" h="100vh" maxH="100dvh" bg="brand.background">
+            <Box
+                pb="78px"
+                h="100vh"
+                maxH="100dvh"
+                bg="brand.background"
+                overflowY="auto"
+            >
                 {children}
             </Box>
             <Box
@@ -21,6 +27,7 @@ export default function PlatformLayout({ children }: PlatformLayoutProps) {
                 bottom="0"
                 left="0"
                 right="0"
+                zIndex="10"
             >
                 <BottomMenu items={menuItems} />
             </Box>

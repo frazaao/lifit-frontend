@@ -4,4 +4,8 @@ export default interface UserPersistence {
     created_at?: Date;
     updated_at?: Date;
     deleted_at?: Date;
+    name: string;
+    role: "ADMIN" | "PATIENT" | "NUTRITIONIST";
+    email: string;
+    avatar?: string;
 }

@@ -9,6 +9,10 @@ class UserMapper {
             createdAt: user.created_at,
             updatedAt: user.updated_at,
             deletedAt: user.deleted_at,
+            email: user.email,
+            name: user.name,
+            role: user.role,
+            avatar: user.avatar,
         };
     }
 
@@ -19,6 +23,10 @@ class UserMapper {
             created_at: user.createdAt,
             updated_at: user.updatedAt,
             deleted_at: user.deletedAt,
+            email: user.email,
+            name: user.name,
+            role: user.role,
+            avatar: user.avatar,
         };
     }
 }
