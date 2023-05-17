@@ -5,6 +5,7 @@ import RegisterDomain from "../types/RegisterDomain";
 import RegisterMapper from "../mappers/RegisterMapper";
 import UserMapper from "../../users/mappers/UserMapper";
 import UserPersistence from "../../users/types/UserPersistence";
+import UserDomain from "../../users/types/UserDomain";
 
 class AuthService {
     async login(credentials: AuthDomain) {
@@ -23,7 +24,7 @@ class AuthService {
         await HttpClient.get("/api/logout");
     }
 
-    async me() {
+    async me(): Promise<UserDomain> {
         const { data } = await HttpClient.get<UserPersistence>("/api/me");
 
         const userToDomain = UserMapper.toDomain(data);

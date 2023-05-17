@@ -3,6 +3,7 @@
 import BottomMenu from "@/components/BottomMenu";
 import { Box } from "@chakra-ui/react";
 import menuItems from "./data.json";
+import { AuthContextProvider } from "@/hooks/useAuth";
 
 interface PlatformLayoutProps {
     children: React.ReactNode;
@@ -10,7 +11,7 @@ interface PlatformLayoutProps {
 
 export default function PlatformLayout({ children }: PlatformLayoutProps) {
     return (
-        <>
+        <AuthContextProvider>
             <Box
                 pb="78px"
                 h="100vh"
@@ -31,6 +32,6 @@ export default function PlatformLayout({ children }: PlatformLayoutProps) {
             >
                 <BottomMenu items={menuItems} />
             </Box>
-        </>
+        </AuthContextProvider>
     );
 }
