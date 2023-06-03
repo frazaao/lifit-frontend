@@ -1,18 +1,12 @@
-import {
-    Box,
-    Flex,
-    Heading,
-    Image as ChakraImage,
-    Text,
-} from "@chakra-ui/react";
+"use client";
+
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import useController from "./useController";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function RecipeSuggestion() {
     const {} = useController();
-
-    const viewportWidth = window.innerWidth;
 
     return (
         <>
@@ -34,13 +28,14 @@ export default function RecipeSuggestion() {
                     // zIndex="0"
                     // objectFit="cover"
                     height={300}
-                    width={viewportWidth}
+                    width={400}
                     style={{
                         inset: 0,
                         position: "absolute",
                         zIndex: 0,
                         objectFit: "cover",
                         height: "100%",
+                        width: "100%",
                     }}
                 />
 
