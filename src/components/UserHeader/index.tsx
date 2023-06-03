@@ -1,4 +1,5 @@
 import { Avatar, Flex, Text } from "@chakra-ui/react";
+import Link from "next/link";
 import useController from "./useController";
 
 interface UserHeaderProps {
@@ -29,6 +30,8 @@ export default function UserHeader({
                     {firstName && `${greetings[getGreetings()]}, ${firstName}`}
                 </Text>
                 <Avatar
+                    as={Link}
+                    href="/app/platform/home/profile"
                     size="sm"
                     name={fullname}
                     src={avatarUrl}

@@ -5,9 +5,7 @@ import NextAppointment from "@/components/NextAppointment";
 import RecipeSuggestion from "@/components/RecipeSuggestion";
 import UserHeader from "@/components/UserHeader";
 import useAuth from "@/hooks/useAuth";
-import AuthService from "@/services/app/domain/auth/services/AuthService";
 import { Stack } from "@chakra-ui/react";
-import { useQuery } from "@tanstack/react-query";
 
 export default function HomePage() {
     const { user } = useAuth();
