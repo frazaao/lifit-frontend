@@ -10,7 +10,7 @@ export default interface PatientProfilePersistence {
     allergies?: string;
     aversions?: string;
     preferences?: string;
-    health_desesases?: string;
+    health_deseases?: string;
     additional_comments?: string;
     diet_objective?: string;
     nutritionist_profile_id?: number;

@@ -27,7 +27,7 @@ export default function ChatPage() {
     const { user } = useAuth();
     const toast = useToast();
 
-    const { data: messages } = useQuery({
+    const { data: messages, refetch: refetchMessages } = useQuery({
         queryFn: MessagesService.list,
         queryKey: ["ListMessages"],
         refetchInterval: 5000,
@@ -47,6 +47,7 @@ export default function ChatPage() {
             await MessagesService.create(values, myNutritionist?.user?.id!);
 
             setValue("content", "");
+            await refetchMessages();
         } catch {
             toast({
                 title: "Ocorreu um erro ao enviar a mensagem",

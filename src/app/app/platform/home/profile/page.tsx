@@ -6,6 +6,9 @@ import {
     Avatar,
     Box,
     Button,
+    Drawer,
+    DrawerContent,
+    DrawerOverlay,
     Flex,
     Heading,
     Icon,
@@ -15,14 +18,24 @@ import {
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { Calendar, Mail, Phone } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import EditProfile from "./edit";
 
 export default function ProfilePage() {
     const { user } = useAuth();
 
-    const { data: patientProfile, isLoading } = useQuery({
+    const {
+        data: patientProfile,
+        isLoading,
+        refetch: refetchPatientProfile,
+    } = useQuery({
         queryFn: PatientProfilesService.findMyProfile,
         queryKey: ["PatientProfileFindMyProfile"],
     });
+
+    const [editProfileDrawerIsOpen, setEditProfileDrawerIdOpen] =
+        useState(false);
 
     if (isLoading) {
         return (
@@ -34,11 +47,31 @@ export default function ProfilePage() {
 
     return (
         <>
+            <Drawer
+                isOpen={editProfileDrawerIsOpen}
+                placement="bottom"
+                onClose={() => setEditProfileDrawerIdOpen(false)}
+            >
+                <DrawerOverlay />
+                <DrawerContent>
+                    <EditProfile
+                        onClose={() => setEditProfileDrawerIdOpen(false)}
+                        user={user!}
+                        patientProfile={patientProfile}
+                        refetch={refetchPatientProfile}
+                    />
+                </DrawerContent>
+            </Drawer>
             <Stack px="10" spacing="2" py="10">
                 <Flex justify="space-between" align="center">
                     <Heading fontSize="lg">Meu perfil</Heading>
 
-                    <Button color="white" bg="brand.green" size="sm">
+                    <Button
+                        color="white"
+                        bg="brand.green"
+                        size="sm"
+                        onClick={() => setEditProfileDrawerIdOpen(true)}
+                    >
                         Editar
                     </Button>
                 </Flex>
@@ -48,19 +81,19 @@ export default function ProfilePage() {
 
                     <Heading fontSize="md">{user?.name}</Heading>
 
-                    <Box as="hr" w="30px" />
+                    <Box as="hr" w="30px" borderColor="gray.400" />
 
-                    <Flex align="center" gap="1">
+                    <Flex align="center" gap="1" color="brand.text">
                         <Icon as={Mail} />
                         <Text fontSize="xs">{user?.email}</Text>
                     </Flex>
 
-                    <Flex align="center" gap="1">
+                    <Flex align="center" gap="1" color="brand.text">
                         <Icon as={Phone} />
                         <Text fontSize="xs">{patientProfile?.phoneNumber}</Text>
                     </Flex>
 
-                    <Flex align="center" gap="1">
+                    <Flex align="center" gap="1" color="brand.text">
                         <Icon as={Calendar} />
                         <Text fontSize="xs">
                             {new Date(
@@ -95,7 +128,7 @@ export default function ProfilePage() {
                     <Stack>
                         <Heading fontSize="sm">Doenças de saúde</Heading>
                         <Text fontSize="xs" color="brand.text">
-                            {patientProfile?.healthDesesases ||
+                            {patientProfile?.healthDeseases ||
                                 "Sem doenças de saúde"}
                         </Text>
                     </Stack>
@@ -105,6 +138,14 @@ export default function ProfilePage() {
                         <Text fontSize="xs" color="brand.text">
                             {patientProfile?.additionalComments ||
                                 "Sem comentários adicionais"}
+                        </Text>
+                    </Stack>
+
+                    <Stack>
+                        <Heading fontSize="sm">Objetivo da dieta</Heading>
+                        <Text fontSize="xs" color="brand.text">
+                            {patientProfile?.dietObjective ||
+                                "Sem objetivo da dieta"}
                         </Text>
                     </Stack>
 

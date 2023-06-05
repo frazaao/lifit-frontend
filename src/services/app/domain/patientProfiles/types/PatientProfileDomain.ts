@@ -10,7 +10,7 @@ export default interface PatientProfileDomain {
     allergies?: string;
     aversions?: string;
     preferences?: string;
-    healthDesesases?: string;
+    healthDeseases?: string;
     additionalComments?: string;
     dietObjective?: string;
     nutritionistProfileId?: number;
