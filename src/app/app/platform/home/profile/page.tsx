@@ -18,7 +18,6 @@ import {
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { Calendar, Mail, Phone } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import EditProfile from "./edit";
 
