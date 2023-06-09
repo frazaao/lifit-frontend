@@ -11,6 +11,8 @@ class MealTypeMapper {
         return {
             id: mealtype.id,
             title: mealtype.title,
+            startTime: mealtype.start_time,
+            endTime: mealtype.end_time,
             createdBy: mealtype.created_by,
             createdAt: mealtype.created_at,
             updatedAt: mealtype.updated_at,
@@ -29,6 +31,8 @@ class MealTypeMapper {
         return {
             id: mealtype.id,
             title: mealtype.title,
+            start_time: mealtype.startTime,
+            end_time: mealtype.endTime,
             created_by: mealtype.createdBy,
             created_at: mealtype.createdAt,
             updated_at: mealtype.updatedAt,

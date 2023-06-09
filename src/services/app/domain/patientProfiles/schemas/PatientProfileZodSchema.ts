@@ -9,27 +9,27 @@ const patientProfileZodSchema: z.ZodType<PatientProfileDomain> = z.object({
     allergies: z.coerce
         .string()
         .optional()
-        .transform((value) => (value === "null" ? "" : value)),
+        .transform((value) => (value === "null" ? undefined : value)),
     aversions: z.coerce
         .string()
         .optional()
-        .transform((value) => (value === "null" ? "" : value)),
+        .transform((value) => (value === "null" ? undefined : value)),
     preferences: z.coerce
         .string()
         .optional()
-        .transform((value) => (value === "null" ? "" : value)),
+        .transform((value) => (value === "null" ? undefined : value)),
     healthDeseases: z.coerce
         .string()
         .optional()
-        .transform((value) => (value === "null" ? "" : value)),
+        .transform((value) => (value === "null" ? undefined : value)),
     additionalComments: z.coerce
         .string()
         .optional()
-        .transform((value) => (value === "null" ? "" : value)),
+        .transform((value) => (value === "null" ? undefined : value)),
     dietObjective: z.coerce
         .string()
         .optional()
-        .transform((value) => (value === "null" ? "" : value)),
+        .transform((value) => (value === "null" ? undefined : value)),
 });
 
 export default patientProfileZodSchema;

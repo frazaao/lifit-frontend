@@ -1,18 +1,62 @@
 "use client";
 
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Spinner, Text } from "@chakra-ui/react";
 import useController from "./useController";
 import Link from "next/link";
 import Image from "next/image";
+import { useQuery } from "@tanstack/react-query";
+import MealTypesService from "@/services/app/domain/mealTypes/services/MealTypesService";
+import _ from "lodash";
 
 export default function RecipeSuggestion() {
     const {} = useController();
+
+    const { data: mealTypes, isLoading } = useQuery({
+        queryFn: MealTypesService.list,
+        queryKey: ["ListMealTypes"],
+    });
+
+    const activeMealType =
+        mealTypes?.find((mealType) => {
+            const isAfterStartTime =
+                new Date()
+                    .toLocaleTimeString("pt-BR")
+                    .localeCompare(mealType.startTime) === 1;
+
+            const isBeforeEndTime =
+                new Date()
+                    .toLocaleTimeString("pt-BR")
+                    .localeCompare(mealType.endTime) === -1;
+
+            return isAfterStartTime && isBeforeEndTime;
+        }) || mealTypes?.at(0);
+
+    const suggestedRecipe = _.shuffle(activeMealType?.recipes)[0] || undefined;
+
+    if (isLoading) {
+        return (
+            <Flex
+                data-testid="RecipeSuggestion"
+                position="relative"
+                rounded="2xl"
+                overflow="hidden"
+                height="300px"
+                width="full"
+                shadow="base"
+                align="center"
+                justify="center"
+                bg="brand.white"
+            >
+                <Spinner />
+            </Flex>
+        );
+    }
 
     return (
         <>
             <Box
                 as={Link}
-                href="/app/platform/menus/recipe/1"
+                href={`/app/platform/menus/recipe/${suggestedRecipe?.id}`}
                 data-testid="RecipeSuggestion"
                 position="relative"
                 rounded="2xl"
@@ -21,7 +65,7 @@ export default function RecipeSuggestion() {
                 shadow="base"
             >
                 <Image
-                    src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1453&q=80"
+                    src={suggestedRecipe?.imageUrl || "/Lifit.svg"}
                     alt="teste"
                     height={300}
                     width={400}
@@ -46,9 +90,9 @@ export default function RecipeSuggestion() {
                     justify="flex-end"
                     align="flex-end"
                 >
-                    <Heading pr="4">Para o café da manhã</Heading>
-                    <Text pr="4" pb="4" fontWeight="medium">
-                        Ovos mechidos com requeijão
+                    <Heading px="4">Para o {activeMealType?.title}</Heading>
+                    <Text px="4" pb="4" fontWeight="medium">
+                        {suggestedRecipe?.title}
                     </Text>
                 </Flex>
             </Box>
