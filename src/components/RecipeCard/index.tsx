@@ -39,6 +39,7 @@ export default function RecipeCard({ recipe, href = "#" }: RecipeCardProps) {
                         alt={recipe.title}
                         width={200}
                         height={200}
+                        style={{ height: "105px", width: "140px" }}
                     />
                 )}
                 <CardBody

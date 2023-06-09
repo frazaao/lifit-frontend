@@ -12,7 +12,7 @@ export default function RecipeSuggestion() {
         <>
             <Box
                 as={Link}
-                href="/app/platform/recipes/1"
+                href="/app/platform/menus/recipe/1"
                 data-testid="RecipeSuggestion"
                 position="relative"
                 rounded="2xl"
@@ -21,12 +21,8 @@ export default function RecipeSuggestion() {
                 shadow="base"
             >
                 <Image
-                    // position="absolute"
-                    // inset="0"
                     src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1453&q=80"
                     alt="teste"
-                    // zIndex="0"
-                    // objectFit="cover"
                     height={300}
                     width={400}
                     style={{
