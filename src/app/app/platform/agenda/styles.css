@@ -1,0 +1,55 @@
+.calendar .react-calendar__viewContainer button {
+    height: 3rem;
+    width: 3rem;
+}
+
+.calendar .react-calendar__month-view__days__day--weekend,
+.calendar .react-calendar__month-view__weekdays__weekday--weekend{
+    color: #D14316;
+}
+
+.calendar .react-calendar__tile--active {
+    background: #259444;
+    color: white;
+    border-radius: .5rem;
+}
+
+.calendar .react-calendar__month-view__weekdays__weekday abbr {
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+.calendar .react-calendar__month-view__days__day--neighboringMonth {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.calendar .react-calendar__navigation {
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    margin-bottom: 1rem;
+}
+
+.calendar .react-calendar__navigation__next2-button,
+.calendar .react-calendar__navigation__prev2-button {
+    display: none;
+}
+
+.calendar .react-calendar__navigation__next-button,
+.calendar .react-calendar__navigation__prev-button {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.calendar .react-calendar__navigation__label span {
+    font-size: 1.25rem;
+    text-transform: uppercase;
+}
+
+.calendar .react-calendar__month-view__weekdays {
+    border-bottom: 1px solid #f9f9f9;
+}
