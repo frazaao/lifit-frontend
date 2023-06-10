@@ -203,7 +203,7 @@ export default function AgendaPage() {
                                 </Text>
                             </Flex>
 
-                            <Flex align="center" gap="2" lineHeight="1">
+                            <Box lineHeight="1">
                                 <Heading fontSize="md" fontWeight="normal">
                                     Comentário sobre a consulta:
                                 </Heading>
@@ -211,7 +211,7 @@ export default function AgendaPage() {
                                     {myAppointmentToday.additionalComments ||
                                         "Sem comentários"}
                                 </Text>
-                            </Flex>
+                            </Box>
 
                             <Flex align="center" gap="2" lineHeight="1">
                                 <Heading fontSize="md" fontWeight="normal">
