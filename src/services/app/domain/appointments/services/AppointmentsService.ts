@@ -9,12 +9,12 @@ class AppointmentsService {
     async create(appointment: AppointmentDomain): Promise<void> {
         const appointmentToPersistence =
             AppointmentMapper.toPersistence(appointment);
-        await HttpClient.post(this.prefix, appointmentToPersistence);
+        await HttpClient.post("/api/appointment/", appointmentToPersistence);
     }
 
     async find(id: string | number): Promise<AppointmentDomain> {
         const { data } = await HttpClient.get<{ data: AppointmentPersistence }>(
-            this.prefix + id
+            "/api/appointment/" + id
         );
 
         const appointmentToDomain = AppointmentMapper.toDomain(data.data);
@@ -25,7 +25,7 @@ class AppointmentsService {
     async list(): Promise<AppointmentDomain[]> {
         const { data } = await HttpClient.get<{
             data: AppointmentPersistence[];
-        }>(this.prefix);
+        }>("/api/appointment/");
 
         const appointmentsToDomain = data.data.map((appointment) =>
             AppointmentMapper.toDomain(appointment)
