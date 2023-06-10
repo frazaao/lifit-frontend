@@ -1,0 +1,27 @@
+{
+    "name": "Lifit",
+    "short_name": "Lifit",
+    "icons": [
+      {
+        "src": "/images/icons/lifit-192-192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/images/icons/lifit-384-384.png",
+        "sizes": "384x384",
+        "type": "image/png"
+      },
+      {
+        "src": "/images/icons/lifit-512-512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "theme_color": "#E5FDDF",
+    "background_color": "#E5FDDF",
+    "start_url": "/app",
+    "display": "standalone",
+    "orientation": "portrait"
+}
