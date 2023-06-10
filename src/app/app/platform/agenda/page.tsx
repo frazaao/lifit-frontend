@@ -30,8 +30,6 @@ import { useForm } from "react-hook-form";
 import "./styles.css";
 
 export default function AgendaPage() {
-    const { user } = useAuth();
-
     const {
         register,
         handleSubmit,
@@ -39,6 +37,7 @@ export default function AgendaPage() {
         watch,
         formState: { errors },
         setError,
+        reset,
     } = useForm<AppointmentZodSchema>({
         resolver: zodResolver(appointmentZodSchema),
         mode: "all",
@@ -53,7 +52,11 @@ export default function AgendaPage() {
             queryKey: ["MyPatientProfile"],
         });
 
-    const { data: appointments, isLoading: appointmentsIsLoading } = useQuery({
+    const {
+        data: appointments,
+        isLoading: appointmentsIsLoading,
+        refetch: refetchAppointments,
+    } = useQuery({
         queryFn: AppointmentsService.list,
         queryKey: ["ListAppointments", myPatientProfile],
     });
@@ -64,6 +67,8 @@ export default function AgendaPage() {
     async function submitForm(values: AppointmentZodSchema) {
         try {
             await AppointmentsService.create(values);
+            reset();
+            refetchAppointments();
             toast({
                 title: "Sucesso!",
                 description: "Agendamento realizado com sucesso!",
