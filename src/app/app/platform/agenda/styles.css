@@ -53,3 +53,7 @@
 .calendar .react-calendar__month-view__weekdays {
     border-bottom: 1px solid #f9f9f9;
 }
+
+.react-calendar__tile {
+    position: relative;
+}

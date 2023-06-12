@@ -26,6 +26,7 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useEffect } from "react";
 import Calendar from "react-calendar";
+import { TileContentFunc } from "react-calendar/dist/cjs/shared/types";
 import { useForm } from "react-hook-form";
 import "./styles.css";
 
@@ -138,6 +139,37 @@ export default function AgendaPage() {
         );
     }
 
+    const setTileContentInCalendarWithAppointments: TileContentFunc = ({
+        date,
+        view,
+    }) => {
+        if (view !== "month") return;
+
+        const appointmentsInCalendar =
+            myAppointments?.filter(
+                (appointment) =>
+                    new Date(appointment.date).toLocaleDateString() ===
+                    date.toLocaleDateString()
+            ) || [];
+
+        if (appointmentsInCalendar.length > 0) {
+            return (
+                <>
+                    <Box
+                        w="4"
+                        h="1"
+                        rounded="full"
+                        bg="brand.green"
+                        position="absolute"
+                        top="75%"
+                        left="50%"
+                        transform="translateX(-50%)"
+                    />
+                </>
+            );
+        }
+    };
+
     return (
         <>
             <Flex
@@ -157,6 +189,7 @@ export default function AgendaPage() {
                         onChange={(value) =>
                             setValue("date", new Date(value?.toString()!))
                         }
+                        tileContent={setTileContentInCalendarWithAppointments}
                     />
                 </Box>
 
