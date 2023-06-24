@@ -1,3 +1,4 @@
+import SchedulePersistence from "../../schedules/types/SchedulePersistence";
 import UserPersistence from "../../users/types/UserPersistence";
 
 export default interface NutritionistProfilePersistence {
@@ -14,4 +15,5 @@ export default interface NutritionistProfilePersistence {
 
     //relationships
     user?: UserPersistence;
+    schedule?: SchedulePersistence;
 }

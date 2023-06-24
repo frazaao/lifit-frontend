@@ -1,3 +1,4 @@
+import ScheduleMapper from "../../schedules/mappers/ScheduleMapper";
 import UserMapper from "../../users/mappers/UserMapper";
 import NutritionistProfileDomain from "../types/NutritionistProfileDomain";
 import NutritionistProfilePersistence from "../types/NutritionistProfilePersistence";
@@ -8,6 +9,10 @@ class NutritionistProfileMapper {
     ): NutritionistProfileDomain {
         const userToDomain = nutritionistProfile.user
             ? UserMapper.toDomain(nutritionistProfile.user)
+            : undefined;
+
+        const scheduleToDomain = nutritionistProfile.schedule
+            ? ScheduleMapper.toDomain(nutritionistProfile.schedule)
             : undefined;
 
         return {
@@ -24,6 +29,7 @@ class NutritionistProfileMapper {
 
             //relationships
             user: userToDomain,
+            schedule: scheduleToDomain,
         };
     }
 
@@ -32,6 +38,10 @@ class NutritionistProfileMapper {
     ): NutritionistProfilePersistence {
         const userToPersistence = nutritionistProfile.user
             ? UserMapper.toPersistence(nutritionistProfile.user)
+            : undefined;
+
+        const scheduleToPersistence = nutritionistProfile.schedule
+            ? ScheduleMapper.toPersistence(nutritionistProfile.schedule)
             : undefined;
 
         return {
@@ -48,6 +58,7 @@ class NutritionistProfileMapper {
 
             //relationships
             user: userToPersistence,
+            schedule: scheduleToPersistence,
         };
     }
 }

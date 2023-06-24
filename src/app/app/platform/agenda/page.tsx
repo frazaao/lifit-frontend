@@ -1,13 +1,7 @@
 "use client";
 
 import FormControl from "@/components/FormControl";
-import useAuth from "@/hooks/useAuth";
 import AppointmentStatusEnum from "@/services/app/domain/appointments/enums/AppontmentStatusEnum";
-import appointmentZodSchema, {
-    AppointmentZodSchema,
-} from "@/services/app/domain/appointments/schemas/AppointmentZodSchema";
-import AppointmentsService from "@/services/app/domain/appointments/services/AppointmentsService";
-import PatientProfilesService from "@/services/app/domain/patientProfiles/services/PatientProfilesService";
 import {
     Box,
     Button,
@@ -19,117 +13,33 @@ import {
     Stack,
     Text,
     Textarea,
-    useToast,
 } from "@chakra-ui/react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useQuery } from "@tanstack/react-query";
-import { AxiosError } from "axios";
-import { useEffect } from "react";
 import Calendar from "react-calendar";
-import { TileContentFunc } from "react-calendar/dist/cjs/shared/types";
-import { useForm } from "react-hook-form";
+import usePageController from "./usePageController";
 import "./styles.css";
 
 export default function AgendaPage() {
     const {
-        register,
+        myPatientProfileIsLoading,
+        myNutritionistIsLoading,
+        appointmentsIsLoading,
         handleSubmit,
+        submitForm,
+        date,
         setValue,
-        watch,
-        formState: { errors },
-        setError,
-        reset,
-    } = useForm<AppointmentZodSchema>({
-        resolver: zodResolver(appointmentZodSchema),
-        mode: "all",
-        defaultValues: {
-            date: new Date(),
-        },
-    });
+        setTileContentInCalendarWithAppointments,
+        setTileDisabled,
+        myAppointmentToday,
+        errors,
+        register,
+        attendanceHours,
+    } = usePageController();
 
-    const { data: myPatientProfile, isLoading: myPatientProfileIsLoading } =
-        useQuery({
-            queryFn: PatientProfilesService.findMyProfile,
-            queryKey: ["MyPatientProfile"],
-        });
-
-    const {
-        data: appointments,
-        isLoading: appointmentsIsLoading,
-        refetch: refetchAppointments,
-    } = useQuery({
-        queryFn: AppointmentsService.list,
-        queryKey: ["ListAppointments", myPatientProfile],
-    });
-
-    const date = watch("date");
-    const toast = useToast();
-
-    async function submitForm(values: AppointmentZodSchema) {
-        try {
-            await AppointmentsService.create(values);
-            reset();
-            refetchAppointments();
-            toast({
-                title: "Sucesso!",
-                description: "Agendamento realizado com sucesso!",
-                status: "success",
-                position: "top-right",
-            });
-        } catch (e) {
-            if (e instanceof AxiosError && e.status === 422) {
-                if (e.response?.data.errors.date) {
-                    setError("date", {
-                        message: e.response?.data.errors.date[0],
-                    });
-                }
-
-                if (e.response?.data.errors.start_time) {
-                    setError("additionalComments", {
-                        message: e.response?.data.errors.additional_comments[0],
-                    });
-                }
-
-                if (e.response?.data.errors.start_time) {
-                    setError("startTime", {
-                        message: e.response?.data.errors.start_time[0],
-                    });
-                }
-            } else {
-                toast({
-                    title: "Houve um erro ao realizar agendamento",
-                    description:
-                        "Ocorreu um erro ao realizar o seu agendamento! Caso o erro persista, entre em contato com a equipe de suporte",
-                    status: "error",
-                    position: "top-right",
-                });
-            }
-        }
-    }
-
-    const myAppointments = appointments?.filter(
-        (appointment) => appointment.patientProfileId === myPatientProfile?.id
-    );
-
-    const myAppointmentToday = myAppointments?.find(
-        (appointment) =>
-            new Date(appointment.date).toLocaleDateString() ===
-            date.toLocaleDateString()
-    );
-
-    useEffect(() => {
-        if (errors.date?.message) {
-            toast({
-                title: errors.date?.message,
-                status: "error",
-                duration: 3000,
-                position: "top-right",
-            });
-            setError("date", {});
-        }
-    }, [errors.date?.message]);
-
-    if (myPatientProfileIsLoading && appointmentsIsLoading) {
+    if (
+        myPatientProfileIsLoading ||
+        appointmentsIsLoading ||
+        myNutritionistIsLoading
+    ) {
         return (
             <>
                 <Flex w="full" h="full" align="center" justify="center">
@@ -138,37 +48,6 @@ export default function AgendaPage() {
             </>
         );
     }
-
-    const setTileContentInCalendarWithAppointments: TileContentFunc = ({
-        date,
-        view,
-    }) => {
-        if (view !== "month") return;
-
-        const appointmentsInCalendar =
-            myAppointments?.filter(
-                (appointment) =>
-                    new Date(appointment.date).toLocaleDateString() ===
-                    date.toLocaleDateString()
-            ) || [];
-
-        if (appointmentsInCalendar.length > 0) {
-            return (
-                <>
-                    <Box
-                        w="4"
-                        h="1"
-                        rounded="full"
-                        bg="brand.green"
-                        position="absolute"
-                        top="75%"
-                        left="50%"
-                        transform="translateX(-50%)"
-                    />
-                </>
-            );
-        }
-    };
 
     return (
         <>
@@ -189,6 +68,7 @@ export default function AgendaPage() {
                         onChange={(value) =>
                             setValue("date", new Date(value?.toString()!))
                         }
+                        tileDisabled={setTileDisabled}
                         tileContent={setTileContentInCalendarWithAppointments}
                     />
                 </Box>
@@ -284,8 +164,11 @@ export default function AgendaPage() {
                                 error={errors.startTime?.message}
                             >
                                 <Select {...register("startTime")}>
-                                    <option value="10:00:00">10:00</option>
-                                    <option value="21:00:00">21:00</option>
+                                    {attendanceHours.map((hour) => (
+                                        <option key={hour} value={hour}>
+                                            {hour.slice(0, 5)}
+                                        </option>
+                                    ))}
                                 </Select>
                             </FormControl>
                         </Box>

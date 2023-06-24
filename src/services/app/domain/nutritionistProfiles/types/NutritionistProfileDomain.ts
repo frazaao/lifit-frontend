@@ -1,3 +1,4 @@
+import ScheduleDomain from "../../schedules/types/ScheduleDomain";
 import UserDomain from "../../users/types/UserDomain";
 
 export default interface NutritionistProfileDomain {
@@ -14,4 +15,5 @@ export default interface NutritionistProfileDomain {
 
     //relationships
     user?: UserDomain;
+    schedule?: ScheduleDomain;
 }
