@@ -6,6 +6,7 @@ export default interface ScheduleManagementDomain {
     attendanceDay: keyof typeof AttendanceDaysEnum;
     attendanceStartTime: string;
     attendanceEndTime: string;
+    attendanceDuration: number;
     breakStartTime?: string;
     breakEndTime?: string;
     createdBy?: number;

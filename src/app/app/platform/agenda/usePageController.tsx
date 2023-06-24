@@ -88,9 +88,8 @@ export default function usePageController() {
         for (
             let i = DateUtils.timeToDate(attendanceData.attendanceStartTime);
             i < DateUtils.timeToDate(attendanceData.attendanceEndTime);
-            i = DateUtils.addMinutes(i, 30)
-        ) //TODO: Alterar dinâmicamente o valor de minutos baseado no tempo de atendimento atribuído ao gerenciamento de agenda do nutricionista
-        {
+            i = DateUtils.addMinutes(i, attendanceData.attendanceDuration)
+        ) {
             if (
                 attendanceData.breakStartTime &&
                 attendanceData.breakEndTime &&
