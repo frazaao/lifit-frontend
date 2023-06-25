@@ -14,6 +14,7 @@ const schedulemanagementZodSchema: z.ZodType<ScheduleManagementDomain> =
             .nonempty(
                 "O campo horário de término do atendimento é obrigatório"
             ),
+        attendanceDuration: z.coerce.number(),
         breakStartTime: z.coerce.string(),
         breakEndTime: z.coerce.string(),
     });
