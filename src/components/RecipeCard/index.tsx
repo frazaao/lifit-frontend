@@ -9,9 +9,9 @@ import {
     Heading,
     Icon,
     Text,
+    Image,
 } from "@chakra-ui/react";
 import { ChevronRight, Flame } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import useController from "./useController";
 
@@ -37,9 +37,9 @@ export default function RecipeCard({ recipe, href = "#" }: RecipeCardProps) {
                     <Image
                         src={recipe.imageUrl}
                         alt={recipe.title}
-                        width={200}
-                        height={200}
-                        style={{ height: "105px", width: "140px" }}
+                        w="full"
+                        h="105px"
+                        objectFit="cover"
                     />
                 )}
                 <CardBody

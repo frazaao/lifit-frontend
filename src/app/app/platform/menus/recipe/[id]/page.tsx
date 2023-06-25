@@ -12,10 +12,11 @@ import {
     ListItem,
     Spinner,
     Text,
+    Image,
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { ChevronLeft, Flame, Soup, UtensilsCrossed } from "lucide-react";
-import Image from "next/image";
+
 import { useRouter } from "next/navigation";
 
 interface RecipePageProps {
@@ -52,9 +53,9 @@ export default function RecipePage({ params }: RecipePageProps) {
                         <Image
                             src={recipe?.imageUrl}
                             alt={recipe?.title}
-                            width={390}
-                            height={306}
-                            style={{ width: "100%", height: "310px" }}
+                            w="full"
+                            h="310px"
+                            objectFit="cover"
                         />
                     )}
                     <Button
@@ -64,6 +65,8 @@ export default function RecipePage({ params }: RecipePageProps) {
                         rounded="3xl"
                         onClick={back}
                         shadow="base"
+                        color="brand.white"
+                        bg="brand.purple"
                     >
                         <Icon as={ChevronLeft} />
                         Voltar

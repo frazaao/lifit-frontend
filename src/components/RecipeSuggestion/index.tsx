@@ -1,9 +1,8 @@
 "use client";
 
-import { Box, Flex, Heading, Spinner, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Spinner, Text, Image } from "@chakra-ui/react";
 import useController from "./useController";
 import Link from "next/link";
-import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import MealTypesService from "@/services/app/domain/mealTypes/services/MealTypesService";
 import _ from "lodash";
@@ -67,16 +66,12 @@ export default function RecipeSuggestion() {
                 <Image
                     src={suggestedRecipe?.imageUrl || "/Lifit.svg"}
                     alt="teste"
-                    height={300}
-                    width={400}
-                    style={{
-                        inset: 0,
-                        position: "absolute",
-                        zIndex: 0,
-                        objectFit: "cover",
-                        height: "100%",
-                        width: "100%",
-                    }}
+                    inset="0"
+                    position="absolute"
+                    zIndex="0"
+                    objectFit="cover"
+                    height="full"
+                    width="full"
                 />
 
                 <Flex
