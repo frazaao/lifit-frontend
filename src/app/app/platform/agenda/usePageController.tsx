@@ -136,6 +136,16 @@ export default function usePageController() {
                         message: e.response?.data.errors.start_time[0],
                     });
                 }
+            }
+            if (e instanceof AxiosError) {
+                toast({
+                    title: "Houve um erro ao realizar agendamento",
+                    // description:
+                    //     "Ocorreu um erro ao realizar o seu agendamento! Caso o erro persista, entre em contato com a equipe de suporte",
+                    description: JSON.stringify(e.response?.data),
+                    status: "error",
+                    position: "top-right",
+                });
             } else {
                 toast({
                     title: "Houve um erro ao realizar agendamento",

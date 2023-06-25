@@ -166,7 +166,10 @@ export default function AgendaPage() {
                                 <Select {...register("startTime")}>
                                     {attendanceHours.map((hour) => (
                                         <option key={hour} value={hour}>
-                                            {hour.slice(0, 5)}
+                                            {hour.slice(
+                                                0,
+                                                hour.lastIndexOf(":")
+                                            )}
                                         </option>
                                     ))}
                                 </Select>
