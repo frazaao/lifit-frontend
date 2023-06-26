@@ -118,7 +118,7 @@ export default function usePageController() {
                 position: "top-right",
             });
         } catch (e) {
-            if (e instanceof AxiosError && e.status === 422) {
+            if (e instanceof AxiosError) {
                 if (e.response?.data.errors.date) {
                     setError("date", {
                         message: e.response?.data.errors.date[0],
@@ -136,17 +136,6 @@ export default function usePageController() {
                         message: e.response?.data.errors.start_time[0],
                     });
                 }
-            }
-            if (e instanceof AxiosError) {
-                toast({
-                    title: "Houve um erro ao realizar agendamento",
-                    // description:
-                    //     "Ocorreu um erro ao realizar o seu agendamento! Caso o erro persista, entre em contato com a equipe de suporte",
-                    description:
-                        e.status + " - " + JSON.stringify(e.response?.data),
-                    status: "error",
-                    position: "top-right",
-                });
             } else {
                 toast({
                     title: "Houve um erro ao realizar agendamento",
