@@ -125,7 +125,7 @@ export default function usePageController() {
                     });
                 }
 
-                if (e.response?.data.errors.start_time) {
+                if (e.response?.data.errors.additional_comments) {
                     setError("additionalComments", {
                         message: e.response?.data.errors.additional_comments[0],
                     });
