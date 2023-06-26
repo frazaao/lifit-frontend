@@ -65,8 +65,8 @@ export default function usePageController() {
 
     const myAppointmentToday = myAppointments?.find(
         (appointment) =>
-            new Date(appointment.date).toLocaleDateString() ===
-            date.toLocaleDateString()
+            new Date(appointment.date).toLocaleDateString("pt-BR") ===
+            date.toLocaleDateString("pt-BR")
     );
 
     const attendanceData = myNutritionist?.schedule?.scheduleManagements?.find(
@@ -94,13 +94,13 @@ export default function usePageController() {
                 attendanceData.breakStartTime &&
                 attendanceData.breakEndTime &&
                 DateUtils.timeToDate(attendanceData?.breakStartTime) <=
-                    DateUtils.timeToDate(i.toLocaleTimeString()) &&
+                    DateUtils.timeToDate(i.toLocaleTimeString("pt-BR")) &&
                 DateUtils.timeToDate(attendanceData?.breakEndTime) >=
-                    DateUtils.timeToDate(i.toLocaleTimeString())
+                    DateUtils.timeToDate(i.toLocaleTimeString("pt-BR"))
             ) {
                 continue;
             }
-            attendanceHours.push(i.toLocaleTimeString());
+            attendanceHours.push(i.toLocaleTimeString("pt-BR"));
         }
 
         return attendanceHours;
@@ -151,8 +151,8 @@ export default function usePageController() {
     function setTileDisabled({ date }: TileArgs): boolean {
         const dayIHaveAppointment = myAppointments?.find(
             (appointment) =>
-                new Date(appointment.date).toLocaleDateString() ===
-                date.toLocaleDateString()
+                new Date(appointment.date).toLocaleDateString("pt-BR") ===
+                date.toLocaleDateString("pt-BR")
         );
 
         if (dayIHaveAppointment) return false;
@@ -193,8 +193,8 @@ export default function usePageController() {
         const appointmentsInCalendar =
             myAppointments?.filter(
                 (appointment) =>
-                    new Date(appointment.date).toLocaleDateString() ===
-                    date.toLocaleDateString()
+                    new Date(appointment.date).toLocaleDateString("pt-BR") ===
+                    date.toLocaleDateString("pt-BR")
             ) || [];
 
         if (appointmentsInCalendar.length > 0) {

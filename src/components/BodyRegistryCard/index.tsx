@@ -34,7 +34,9 @@ export default function BodyRegistryCard({
                 py="2"
             >
                 <Flex align="center" justify="space-between">
-                    <Heading fontSize="md">{date.toLocaleDateString()}</Heading>
+                    <Heading fontSize="md">
+                        {date.toLocaleDateString("pt-BR")}
+                    </Heading>
 
                     <Button
                         as={Link}

@@ -49,7 +49,7 @@ export default function ShowBodyRegistry({
                                         <Text fontSize="sm" color="brand.text">
                                             {new Date(
                                                 registry?.registryDate
-                                            ).toLocaleDateString()}
+                                            ).toLocaleDateString("pt-BR")}
                                         </Text>
                                     )}
                                 </Flex>

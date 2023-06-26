@@ -103,7 +103,7 @@ export default function AgendaPage() {
                                 <Text color="brand.text">
                                     {new Date(
                                         myAppointmentToday.date
-                                    ).toLocaleDateString()}
+                                    ).toLocaleDateString("pt-BR")}
                                 </Text>
                             </Flex>
 
