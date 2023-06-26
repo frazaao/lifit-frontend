@@ -56,7 +56,7 @@ export default function EditProfile({
             refetch();
             onClose();
         } catch (e) {
-            if (e instanceof AxiosError) {
+            if (e instanceof AxiosError && e.response?.status === 422) {
                 if (e.response?.data.errors.allergies) {
                     setError("allergies", {
                         message: e.response?.data.errors.allergies[0],

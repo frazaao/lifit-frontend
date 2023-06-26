@@ -54,7 +54,7 @@ export default function RegisterPage() {
 
             router.push("/app/platform/home");
         } catch (e) {
-            if (e instanceof AxiosError) {
+            if (e instanceof AxiosError && e.response?.status === 422) {
                 if (e.response?.data.errors.email) {
                     setError("email", {
                         message: e.response?.data.errors.email[0],

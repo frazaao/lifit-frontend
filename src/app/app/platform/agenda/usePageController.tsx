@@ -118,7 +118,7 @@ export default function usePageController() {
                 position: "top-right",
             });
         } catch (e) {
-            if (e instanceof AxiosError) {
+            if (e instanceof AxiosError && e.response?.status === 422) {
                 if (e.response?.data.errors.date) {
                     setError("date", {
                         message: e.response?.data.errors.date[0],
