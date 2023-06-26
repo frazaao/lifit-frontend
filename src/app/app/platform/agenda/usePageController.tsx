@@ -142,7 +142,8 @@ export default function usePageController() {
                     title: "Houve um erro ao realizar agendamento",
                     // description:
                     //     "Ocorreu um erro ao realizar o seu agendamento! Caso o erro persista, entre em contato com a equipe de suporte",
-                    description: JSON.stringify(e.status, e.response?.data),
+                    description:
+                        e.status + " - " + JSON.stringify(e.response?.data),
                     status: "error",
                     position: "top-right",
                 });
