@@ -3,10 +3,11 @@
 import Logo from "@/components/Logo";
 import ReceptionSlider from "@/components/ReceptionSlider";
 import AuthService from "@/services/app/domain/auth/services/AuthService";
-import { Box, Button, Flex, Spinner, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 const carouselItems = [
     {
@@ -53,7 +54,12 @@ export default function AppPage() {
     if (isLoading) {
         return (
             <Flex w="100vw" h="100vh" align="center" justify="center">
-                <Spinner />
+                <Player
+                    autoplay
+                    loop
+                    src="/animations/loading/fruits-loading.json"
+                    style={{ width: "200px" }}
+                />
             </Flex>
         );
     }
