@@ -2,8 +2,11 @@
 
 import Logo from "@/components/Logo";
 import ReceptionSlider from "@/components/ReceptionSlider";
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import AuthService from "@/services/app/domain/auth/services/AuthService";
+import { Box, Button, Flex, Spinner, Text } from "@chakra-ui/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 
 const carouselItems = [
     {
@@ -27,6 +30,35 @@ const carouselItems = [
 ];
 
 export default function AppPage() {
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(true);
+
+    const verifyIfUserIsLogged = useCallback(async () => {
+        try {
+            const me = await AuthService.me();
+
+            if (me) {
+                router.push("/app/platform/home");
+            }
+        } catch {
+            return;
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        verifyIfUserIsLogged();
+    }, [verifyIfUserIsLogged]);
+
+    if (isLoading) {
+        return (
+            <Flex w="100vw" h="100vh" align="center" justify="center">
+                <Spinner />
+            </Flex>
+        );
+    }
+
     return (
         <>
             <Flex
