@@ -41,9 +41,8 @@ export default function AppPage() {
                 router.push("/app/platform/home");
             }
         } catch {
-            return;
-        } finally {
             setIsLoading(false);
+            return;
         }
     }, []);
 
