@@ -8,6 +8,7 @@ import {
     Divider,
     Flex,
     Heading,
+    Icon,
     Select,
     Spinner,
     Stack,
@@ -17,6 +18,7 @@ import {
 import Calendar from "react-calendar";
 import usePageController from "./usePageController";
 import "./styles.css";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function AgendaPage() {
     const {
@@ -70,6 +72,8 @@ export default function AgendaPage() {
                         }
                         tileDisabled={setTileDisabled}
                         tileContent={setTileContentInCalendarWithAppointments}
+                        nextLabel={<Icon as={ChevronRight} />}
+                        prevLabel={<Icon as={ChevronLeft} />}
                     />
                 </Box>
 

@@ -4,6 +4,7 @@ import bodyRegistryZodSchema, {
 } from "@/services/app/domain/bodyRegistries/schemas/BodyRegistryZodSchema";
 import BodyRegistriesService from "@/services/app/domain/bodyRegistries/services/BodyRegistriesService";
 import PatientProfilesService from "@/services/app/domain/patientProfiles/services/PatientProfilesService";
+import Masks from "@/utils/String/Masks";
 import {
     Box,
     Button,
@@ -14,6 +15,8 @@ import {
     Flex,
     Heading,
     Input,
+    InputGroup,
+    InputRightAddon,
     Stack,
     Textarea,
     useToast,
@@ -40,9 +43,12 @@ export default function AddBodyRegistryForm({
         handleSubmit,
         setValue,
         reset,
+        watch,
     } = useForm<BodyRegistryZodSchema>({
         resolver: zodResolver(bodyRegistryZodSchema),
     });
+
+    const [weight, height] = watch(["weight", "height"]);
 
     const toast = useToast();
 
@@ -119,20 +125,104 @@ export default function AddBodyRegistryForm({
                                         label="Peso"
                                         error={errors.weight?.message}
                                     >
-                                        <Input
-                                            type="number"
-                                            {...register("weight")}
-                                        />
+                                        <InputGroup>
+                                            <Input
+                                                {...register("weight")}
+                                                type="number"
+                                                value={Masks.mask(
+                                                    String(weight).replace(
+                                                        ".",
+                                                        ""
+                                                    ),
+                                                    "#0.00",
+                                                    { reverse: true }
+                                                )}
+                                                onChange={({ target }) => {
+                                                    setValue(
+                                                        "weight",
+                                                        Number(
+                                                            target.value.replace(
+                                                                ".",
+                                                                ""
+                                                            )
+                                                        )
+                                                    );
+                                                }}
+                                            />
+                                            <InputRightAddon>
+                                                kg
+                                            </InputRightAddon>
+                                        </InputGroup>
                                     </FormControl>
 
                                     <FormControl
                                         label="Altura"
                                         error={errors.height?.message}
                                     >
-                                        <Input
-                                            type="number"
-                                            {...register("height")}
-                                        />
+                                        <InputGroup>
+                                            <Input
+                                                type="number"
+                                                {...register("height")}
+                                                value={Masks.mask(
+                                                    String(height).replace(
+                                                        ".",
+                                                        ""
+                                                    ),
+                                                    "#0.00",
+                                                    { reverse: true }
+                                                )}
+                                                onChange={({ target }) =>
+                                                    setValue(
+                                                        "height",
+                                                        Number(
+                                                            target.value.replace(
+                                                                ".",
+                                                                ""
+                                                            )
+                                                        )
+                                                    )
+                                                }
+                                            />
+                                            <InputRightAddon>m</InputRightAddon>
+                                        </InputGroup>
+                                    </FormControl>
+                                </Flex>
+
+                                <Flex gap="3">
+                                    <FormControl
+                                        label="Circunferência do quadril"
+                                        error={errors.hipCircunference?.message}
+                                    >
+                                        <InputGroup>
+                                            <Input
+                                                type="number"
+                                                {...register(
+                                                    "hipCircunference"
+                                                )}
+                                            />
+                                            <InputRightAddon>
+                                                cm
+                                            </InputRightAddon>
+                                        </InputGroup>
+                                    </FormControl>
+
+                                    <FormControl
+                                        label="Circunferência do abdômen"
+                                        error={
+                                            errors.abdomenCircunference?.message
+                                        }
+                                    >
+                                        <InputGroup>
+                                            <Input
+                                                type="number"
+                                                {...register(
+                                                    "abdomenCircunference"
+                                                )}
+                                            />
+                                            <InputRightAddon>
+                                                cm
+                                            </InputRightAddon>
+                                        </InputGroup>
                                     </FormControl>
                                 </Flex>
 
@@ -176,32 +266,6 @@ export default function AddBodyRegistryForm({
                                         <Input
                                             type="text"
                                             {...register("triglycerides")}
-                                        />
-                                    </FormControl>
-                                </Flex>
-
-                                <Flex gap="3">
-                                    <FormControl
-                                        label="Circunferência do quadril"
-                                        error={errors.hipCircunference?.message}
-                                    >
-                                        <Input
-                                            type="text"
-                                            {...register("hipCircunference")}
-                                        />
-                                    </FormControl>
-
-                                    <FormControl
-                                        label="Circunferência do abdômen"
-                                        error={
-                                            errors.abdomenCircunference?.message
-                                        }
-                                    >
-                                        <Input
-                                            type="text"
-                                            {...register(
-                                                "abdomenCircunference"
-                                            )}
                                         />
                                     </FormControl>
                                 </Flex>

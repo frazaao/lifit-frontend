@@ -67,3 +67,14 @@
     color: white;
     border-radius: .5rem;
 }
+
+.react-calendar__navigation__label {
+    pointer-events: none;
+}
+
+.react-calendar__navigation__arrow {
+    min-width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -5,6 +5,7 @@ import BodyRegistriesService from "@/services/app/domain/bodyRegistries/services
 import { Button, Flex, Heading, Icon, Stack } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { ChevronLeft } from "lucide-react";
+import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import AddBodyRegistryForm from "./AddBodyRegistryForm";
 import ShowBodyRegistry from "./ShowBodyregistry";
@@ -13,8 +14,6 @@ export default function BodyRegistriesPage() {
     const router = useRouter();
     const params = useSearchParams();
     const pathname = usePathname();
-
-    console.log(pathname);
 
     const addBodyRegistryIsOpen = params.get("create") === "true";
     function setAddBodyRegistryIsOpen(isOpen: boolean) {
@@ -37,10 +36,6 @@ export default function BodyRegistriesPage() {
         }
     }
 
-    function back() {
-        router.back();
-    }
-
     const { data: bodyRegistries, refetch: refetchRegistries } = useQuery({
         queryKey: ["ListBodyRegistries"],
         queryFn: () => BodyRegistriesService.list(),
@@ -60,11 +55,12 @@ export default function BodyRegistriesPage() {
             />
 
             <Button
+                as={Link}
+                href="/app/platform/registries"
                 position="fixed"
                 top="2"
                 left="2"
                 rounded="3xl"
-                onClick={back}
                 shadow="base"
                 bg="brand.purple"
                 color="brand.white"

@@ -109,7 +109,7 @@ export default function usePageController() {
     async function submitForm(values: AppointmentZodSchema) {
         try {
             await AppointmentsService.create(values);
-            reset();
+
             refetchAppointments();
             toast({
                 title: "Sucesso!",

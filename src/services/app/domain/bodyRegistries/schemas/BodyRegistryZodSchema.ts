@@ -3,8 +3,14 @@ import BodyRegistryDomain from "../types/BodyRegistryDomain";
 
 const bodyRegistryZodSchema: z.ZodType<BodyRegistryDomain> = z.object({
     patientProfileId: z.coerce.number(),
-    weight: z.coerce.number(),
-    height: z.coerce.number(),
+    weight: z.coerce
+        .number()
+        .refine((value) => value > 0, "O campo peso é obrigatório")
+        .transform((value) => value * 100),
+    height: z.coerce
+        .number()
+        .refine((value) => value > 0, "O campo altura é obrigatório")
+        .transform((value) => value * 100),
     arterialPressure: z.coerce.string(),
     glycemia: z.coerce.string(),
     cholesterol: z.coerce.string(),

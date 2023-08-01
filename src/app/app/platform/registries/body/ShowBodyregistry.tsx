@@ -69,14 +69,22 @@ export default function ShowBodyRegistry({
                                     <Box flex="1">
                                         <Heading fontSize="md">Peso</Heading>
                                         <Text fontSize="sm" color="brand.text">
-                                            {registry?.weight || "-"}
+                                            {(registry?.weight &&
+                                                `${(
+                                                    registry?.weight / 100
+                                                ).toFixed(2)}kg`) ??
+                                                "-"}
                                         </Text>
                                     </Box>
 
                                     <Box flex="1">
                                         <Heading fontSize="md">Altura</Heading>
                                         <Text fontSize="sm" color="brand.text">
-                                            {registry?.height || "-"}
+                                            {(registry?.height &&
+                                                `${(
+                                                    registry?.height / 100
+                                                ).toFixed(2)}m`) ??
+                                                "-"}
                                         </Text>
                                     </Box>
                                 </Flex>
@@ -87,7 +95,7 @@ export default function ShowBodyRegistry({
                                             Pressão arterial
                                         </Heading>
                                         <Text fontSize="sm" color="brand.text">
-                                            {registry?.arterialPressure || "-"}
+                                            {registry?.arterialPressure ?? "-"}
                                         </Text>
                                     </Box>
 
@@ -96,7 +104,7 @@ export default function ShowBodyRegistry({
                                             Glicemia
                                         </Heading>
                                         <Text fontSize="sm" color="brand.text">
-                                            {registry?.glycemia || "-"}
+                                            {registry?.glycemia ?? "-"}
                                         </Text>
                                     </Box>
                                 </Flex>
@@ -107,7 +115,7 @@ export default function ShowBodyRegistry({
                                             Colesterol
                                         </Heading>
                                         <Text fontSize="sm" color="brand.text">
-                                            {registry?.cholesterol || "-"}
+                                            {registry?.cholesterol ?? "-"}
                                         </Text>
                                     </Box>
 
@@ -116,7 +124,7 @@ export default function ShowBodyRegistry({
                                             Triglicerídeos
                                         </Heading>
                                         <Text fontSize="sm" color="brand.text">
-                                            {registry?.triglycerides || "-"}
+                                            {registry?.triglycerides ?? "-"}
                                         </Text>
                                     </Box>
                                 </Flex>
@@ -127,7 +135,9 @@ export default function ShowBodyRegistry({
                                             Circunferência do quadril
                                         </Heading>
                                         <Text fontSize="sm" color="brand.text">
-                                            {registry?.hipCircunference || "-"}
+                                            {(registry?.hipCircunference &&
+                                                `${registry?.hipCircunference}cm`) ??
+                                                "-"}
                                         </Text>
                                     </Box>
 
@@ -136,7 +146,8 @@ export default function ShowBodyRegistry({
                                             Circunferência do abdômen
                                         </Heading>
                                         <Text fontSize="sm" color="brand.text">
-                                            {registry?.abdomenCircunference ||
+                                            {(registry?.abdomenCircunference &&
+                                                `${registry?.abdomenCircunference}cm`) ??
                                                 "-"}
                                         </Text>
                                     </Box>
@@ -147,7 +158,7 @@ export default function ShowBodyRegistry({
                                             Medicamentos em uso
                                         </Heading>
                                         <Text fontSize="sm" color="brand.text">
-                                            {registry?.medicationsInUse || "-"}
+                                            {registry?.medicationsInUse ?? "-"}
                                         </Text>
                                     </Box>
 
@@ -156,7 +167,7 @@ export default function ShowBodyRegistry({
                                         <Text fontSize="sm" color="brand.text">
                                             {registry?.bodyMassIndex?.toFixed(
                                                 2
-                                            ) || "-"}
+                                            ) ?? "-"}
                                         </Text>
                                     </Box>
                                 </Flex>

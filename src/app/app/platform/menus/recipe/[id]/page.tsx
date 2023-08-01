@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { ChevronLeft, Flame, Soup, UtensilsCrossed } from "lucide-react";
+import Link from "next/link";
 
 import { useRouter } from "next/navigation";
 
@@ -30,12 +31,6 @@ export default function RecipePage({ params }: RecipePageProps) {
         queryFn: () => RecipesService.find(params.id),
         queryKey: ["FindRecipe", params.id],
     });
-
-    const router = useRouter();
-
-    function back() {
-        router.back();
-    }
 
     if (isLoading) {
         return (
@@ -63,7 +58,8 @@ export default function RecipePage({ params }: RecipePageProps) {
                         top="2"
                         left="2"
                         rounded="3xl"
-                        onClick={back}
+                        as={Link}
+                        href="/app/platform/menus"
                         shadow="base"
                         color="brand.white"
                         bg="brand.purple"

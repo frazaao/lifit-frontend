@@ -25,7 +25,7 @@ export default function RegistriesPage() {
                 <CardBody>
                     <Box>
                         <Heading fontSize="xl">
-                            Registros de dados coroporais
+                            Registros de dados corporais
                         </Heading>
                         <Flex align="center" justify="space-between" gap="2">
                             <Box w="full" h="10rem">

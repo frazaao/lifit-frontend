@@ -9790,6 +9790,11 @@ strict-event-emitter@^0.4.3:
   resolved "https://registry.npmjs.org/strict-event-emitter/-/strict-event-emitter-0.4.6.tgz"
   integrity sha512-12KWeb+wixJohmnwNFerbyiBrAlq5qJLwIt38etRtKtmmHyDSoGlIqFE9wx+4IwG0aDjI7GV8tc8ZccjWZZtTg==
 
+string-mask@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/string-mask/-/string-mask-0.3.0.tgz#9e7244b87bb2f6f9647e2ac98f96fa1a57c21198"
+  integrity sha512-YR93J2lCJyA9GYDHoPk2Yzykw6zc/A2KkcRchSMuLo9tTKDfawqrU/sGf2kxGelPyYTAgQ4j5MLWob/7tJ68bg==
+
 "string-width@^1.0.2 || 2 || 3 || 4", string-width@^4.0.0, string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.2, string-width@^4.2.3:
   version "4.2.3"
   resolved "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz"

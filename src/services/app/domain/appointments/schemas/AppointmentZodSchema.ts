@@ -26,8 +26,6 @@ const appointmentZodSchema: z.ZodType<AppointmentDomain> = z
                 Number(seconds)
             );
 
-            console.log(appointmentDatetime < new Date());
-
             if (appointmentDatetime < new Date()) {
                 return false;
             }
