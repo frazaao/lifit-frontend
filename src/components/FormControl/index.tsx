@@ -33,7 +33,9 @@ export default function FormControl({
                 isInvalid={!!error}
             >
                 {!!label && (
-                    <FormLabel htmlFor={children.props.name}>{label}</FormLabel>
+                    <FormLabel htmlFor={children.props.name} fontSize="sm">
+                        {label}
+                    </FormLabel>
                 )}
 
                 {children}

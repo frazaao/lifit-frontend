@@ -17,3 +17,11 @@ li {
     display: none;
     width: 10px;
 }
+
+select:invalid{
+    color: var(--chakra-colors-brand-text)!important;
+}
+
+option {
+    color: var(--chakra-colors-brand-heading)!important;
+}

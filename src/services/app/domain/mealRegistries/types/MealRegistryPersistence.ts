@@ -1,3 +1,6 @@
+import MealTypePersistence from "../../mealTypes/types/MealTypePersistence";
+import RecipePersistence from "../../recipes/types/RecipePersistence";
+
 export default interface MealRegistryPersistence {
     id?: number;
     patient_profile_id: number;
@@ -11,4 +14,8 @@ export default interface MealRegistryPersistence {
     created_at?: Date;
     updated_at?: Date;
     deleted_at?: Date;
+
+    // Relationships
+    recipe?: RecipePersistence;
+    meal_type?: MealTypePersistence;
 }

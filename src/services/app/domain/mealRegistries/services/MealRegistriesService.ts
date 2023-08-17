@@ -4,7 +4,7 @@ import MealRegistryMapper from "../mappers/MealRegistryMapper";
 import HttpClient from "@/libs/HttpClient/axios";
 
 class MealRegistriesService {
-    prefix = "/meal-registry/";
+    prefix = "/api/meal_registry/";
 
     async create(mealregistry: MealRegistryDomain): Promise<void> {
         const mealregistryPersistence =

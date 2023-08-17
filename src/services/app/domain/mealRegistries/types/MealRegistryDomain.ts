@@ -1,3 +1,6 @@
+import MealTypeDomain from "../../mealTypes/types/MealTypeDomain";
+import RecipeDomain from "../../recipes/types/RecipeDomain";
+
 export default interface MealRegistryDomain {
     id?: number;
     patientProfileId: number;
@@ -11,4 +14,8 @@ export default interface MealRegistryDomain {
     createdAt?: Date;
     updatedAt?: Date;
     deletedAt?: Date;
+
+    // Relationships
+    recipe?: RecipeDomain;
+    mealType?: MealTypeDomain;
 }
