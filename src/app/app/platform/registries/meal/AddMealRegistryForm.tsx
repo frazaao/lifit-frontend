@@ -121,7 +121,7 @@ export default function AddMealRegistryForm({
                         <Box as="form" onSubmit={handleSubmit(submitForm)}>
                             <Flex align="center" justify="space-between" pb="4">
                                 <Heading fontSize="xl">
-                                    Adicionar dados corporais
+                                    Adicionar refeição
                                 </Heading>
                                 <Button
                                     variant="outline"
