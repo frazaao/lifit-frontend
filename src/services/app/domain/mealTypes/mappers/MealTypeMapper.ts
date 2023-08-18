@@ -4,7 +4,6 @@ import MealTypePersistence from "../types/MealTypePersistence";
 
 class MealTypeMapper {
     toDomain(mealtype: MealTypePersistence): MealTypeDomain {
-        console.log(mealtype);
         const recipesToDomain = mealtype.recipes?.map((recipe) =>
             RecipeMapper.toDomain(recipe)
         );

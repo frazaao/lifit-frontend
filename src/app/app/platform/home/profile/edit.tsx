@@ -45,7 +45,6 @@ export default function EditProfile({
     const toast = useToast();
 
     async function handleForm(values: PatientProfileZodSchema) {
-        console.log(values);
         try {
             await PatientProfilesService.updateMyProfile(values);
             toast({

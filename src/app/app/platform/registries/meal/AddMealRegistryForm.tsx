@@ -22,6 +22,8 @@ import {
     Textarea,
     Spinner,
     useToast,
+    InputGroup,
+    InputRightAddon,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
@@ -128,7 +130,10 @@ export default function AddMealRegistryForm({
                                     borderColor="brand.red"
                                     color="brand.red"
                                     size="sm"
-                                    onClick={onClose}
+                                    onClick={() => {
+                                        reset();
+                                        onClose();
+                                    }}
                                 >
                                     Cancelar
                                 </Button>
@@ -169,11 +174,14 @@ export default function AddMealRegistryForm({
                                         label="Peso aproximado do prato"
                                         error={errors.weight?.message}
                                     >
-                                        <Input
-                                            {...register("weight")}
-                                            placeholder="Peso em gramas"
-                                            type="number"
-                                        />
+                                        <InputGroup>
+                                            <Input
+                                                {...register("weight")}
+                                                placeholder="Peso do prato"
+                                                type="number"
+                                            />
+                                            <InputRightAddon>g</InputRightAddon>
+                                        </InputGroup>
                                     </FormControl>
                                 </Flex>
 
@@ -192,10 +200,7 @@ export default function AddMealRegistryForm({
                                             pb="4"
                                         >
                                             <RecipeCardOption
-                                                isSelected={
-                                                    watch("recipeId") ===
-                                                    undefined
-                                                }
+                                                isSelected={!watch("recipeId")}
                                                 onSelect={(recipeId) =>
                                                     setValue(
                                                         "recipeId",
@@ -283,6 +288,10 @@ export default function AddMealRegistryForm({
                                     variant="outline"
                                     color="brand.red"
                                     borderColor="brand.red"
+                                    onClick={() => {
+                                        reset();
+                                        onClose();
+                                    }}
                                 >
                                     Cancelar
                                 </Button>

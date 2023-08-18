@@ -16,6 +16,7 @@ import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import AddMealRegistryForm from "./AddMealRegistryForm";
+import ShowMealRegistry from "./ShowMealRegistry";
 
 export default function MealRegistriesPage() {
     const router = useRouter();
@@ -32,6 +33,19 @@ export default function MealRegistriesPage() {
         }
     }
 
+    const showMealRegistryIsOpen = params.get("show") === "true";
+
+    function setShowMealRegistryIsOpen(
+        isOpen: boolean,
+        registryId?: string | number
+    ) {
+        if (isOpen) {
+            router.push(pathname + "?show=true&id=" + registryId);
+        } else {
+            router.push(pathname);
+        }
+    }
+
     const { data, isLoading, refetch } = useQuery({
         queryFn: () => MealRegistriesService.list(),
         queryKey: ["ListMealRegistries"],
@@ -43,6 +57,11 @@ export default function MealRegistriesPage() {
                 isOpen={addMealRegistryIsOpen}
                 onClose={() => setAddMealRegistryIsOpen(false)}
                 refetch={() => refetch()}
+            />
+
+            <ShowMealRegistry
+                isOpen={showMealRegistryIsOpen}
+                onClose={() => setShowMealRegistryIsOpen(false)}
             />
 
             <Button
@@ -89,9 +108,12 @@ export default function MealRegistriesPage() {
                             <MealRegistryCard
                                 key={registry.id}
                                 recipe={registry.recipe}
-                                createdAt={new Date(registry.createdAt!)}
+                                createdAt={new Date(registry.date)}
                                 weight={registry.weight!}
                                 mealType={registry.mealType!}
+                                onClick={() =>
+                                    setShowMealRegistryIsOpen(true, registry.id)
+                                }
                             />
                         ))}
                     </Stack>

@@ -27,6 +27,7 @@ interface MealRegistryCardProps {
     createdAt: Date;
     weight: number;
     mealType: MealTypeDomain;
+    onClick?: () => void;
 }
 
 export default function MealRegistryCard({
@@ -34,10 +35,9 @@ export default function MealRegistryCard({
     createdAt = new Date(),
     weight = 0,
     mealType,
+    onClick = () => {},
 }: MealRegistryCardProps) {
     const {} = useController();
-
-    console.log(recipe);
 
     return (
         <>
@@ -155,8 +155,7 @@ export default function MealRegistryCard({
                         </Stack>
 
                         <Button
-                            as={Link}
-                            href="#"
+                            onClick={onClick}
                             size="sm"
                             bg="brand.purple"
                             color="brand.white"
