@@ -1,6 +1,6 @@
 import AuthService from "@/services/app/domain/auth/services/AuthService";
 import UserDomain from "@/services/app/domain/users/types/UserDomain";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 
 interface AuthContextProps {
@@ -15,7 +15,7 @@ interface AuthContextProviderProps {
 
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
     const [user, setUser] = useState<UserDomain | null>(null);
-
+    const pathname = usePathname();
     const router = useRouter();
 
     useEffect(() => {
@@ -26,9 +26,13 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
         AuthService.me()
             .then((data) => setUser(data))
             .catch(() => {
-                router.push("/app/login");
+                if (pathname.includes("admin")) {
+                    router.push("/admin/login");
+                } else {
+                    router.push("/app/login");
+                }
             });
-    });
+    }, []);
 
     return (
         <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
