@@ -3,7 +3,6 @@
 import PatientProfileDomain from "@/services/app/domain/patientProfiles/types/PatientProfileDomain";
 import {
     Avatar,
-    Box,
     Button,
     Flex,
     Heading,
@@ -12,7 +11,7 @@ import {
     Stack,
     Text,
 } from "@chakra-ui/react";
-import { Calendar, Mail, MoreVertical, Phone, Send } from "lucide-react";
+import { Calendar, Mail, MoreHorizontal, Phone, Send } from "lucide-react";
 import useController from "./useController";
 
 interface PatientProfileHeaderProps {
@@ -63,6 +62,11 @@ export default function PatientProfileHeader({
                                 color="brand.white"
                                 bg="brand.green"
                                 size="sm"
+                                gap="1"
+                                transition="all .2s ease-in-out"
+                                _hover={{
+                                    filter: "brightness(0.9)",
+                                }}
                             >
                                 Enviar mensagem <Icon as={Send} />
                             </Button>
@@ -73,8 +77,12 @@ export default function PatientProfileHeader({
                                 color="brand.white"
                                 borderColor="brand.green"
                                 size="sm"
+                                transition="all .2s ease-in-out"
+                                _hover={{
+                                    bg: "brand.green",
+                                }}
                             >
-                                <Icon as={MoreVertical} />
+                                <Icon as={MoreHorizontal} />
                             </IconButton>
                         </Flex>
                     </Flex>
