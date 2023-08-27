@@ -1,5 +1,12 @@
 import PaginationDomain from "@/services/pagination/types/PaginationDomain";
-import { Button, ButtonGroup, Flex, Icon, Text } from "@chakra-ui/react";
+import {
+    Button,
+    ButtonGroup,
+    Flex,
+    Icon,
+    IconButton,
+    Text,
+} from "@chakra-ui/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import useController from "./useController";
 
@@ -20,18 +27,20 @@ export default function Pagination<T = null>({
     return (
         <>
             <ButtonGroup data-testid="Pagination">
-                <Button
+                <IconButton
+                    aria-label="Página anterior"
                     onClick={prevPage}
                     isDisabled={pagination.currentPage === 1}
                 >
                     <Icon as={ChevronLeft} />
-                </Button>
+                </IconButton>
 
                 {paginationLinks.map((link, index) => (
                     <Button
                         key={index}
                         color="brand.white"
                         bg="brand.green"
+                        aria-label={`Página ${link.label}`}
                         variant={link.active ? "solid" : "ghost"}
                         isDisabled={Number.isNaN(Number(link.label))}
                         onClick={() => setPage(Number(link.label))}
@@ -40,12 +49,13 @@ export default function Pagination<T = null>({
                     </Button>
                 ))}
 
-                <Button
+                <IconButton
+                    aria-label="Página posterior"
                     isDisabled={pagination.currentPage === pagination.lastPage}
                     onClick={nextPage}
                 >
                     <Icon as={ChevronRight} />
-                </Button>
+                </IconButton>
             </ButtonGroup>
         </>
     );
