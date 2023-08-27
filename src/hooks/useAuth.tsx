@@ -1,5 +1,7 @@
 import AuthService from "@/services/app/domain/auth/services/AuthService";
 import UserDomain from "@/services/app/domain/users/types/UserDomain";
+import { Flex } from "@chakra-ui/react";
+import { Player } from "@lottiefiles/react-lottie-player";
 import { usePathname, useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -33,6 +35,19 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
                 }
             });
     }, []);
+
+    if (!user) {
+        return (
+            <Flex w="100vw" h="100vh" align="center" justify="center">
+                <Player
+                    autoplay
+                    loop
+                    src="/animations/loading/fruits-loading.json"
+                    style={{ width: "200px" }}
+                />
+            </Flex>
+        );
+    }
 
     return (
         <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>

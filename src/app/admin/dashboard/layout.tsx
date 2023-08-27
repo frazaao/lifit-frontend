@@ -1,6 +1,7 @@
 "use client";
 
 import Sidebar from "@/components/Sidebar";
+import { AuthContextProvider } from "@/hooks/useAuth";
 import { Flex } from "@chakra-ui/react";
 
 interface AdminDashboardLayoutProps {
@@ -11,9 +12,11 @@ export default function AdminDashboardLayout({
     children,
 }: AdminDashboardLayoutProps) {
     return (
-        <Flex bgColor="brand.background" w="100vw" h="100vh">
-            <Sidebar />
-            {children}
-        </Flex>
+        <AuthContextProvider>
+            <Flex bgColor="brand.background" w="100vw" h="100vh">
+                <Sidebar />
+                {children}
+            </Flex>
+        </AuthContextProvider>
     );
 }

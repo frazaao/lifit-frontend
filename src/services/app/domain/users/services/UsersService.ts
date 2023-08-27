@@ -1,40 +1,48 @@
-// import Service from "@/services/app/contracts/Service";
-// import UserDomain from "../types/UserDomain";
-// import UserPersistence from "../types/UserPersistence";
-// import UserMapper from "../mappers/UserMapper";
+import UserDomain from "../types/UserDomain";
+import UserPersistence from "../types/UserPersistence";
+import UserMapper from "../mappers/UserMapper";
+import HttpClient from "@/libs/HttpClient/axios";
 
-// class UsersService
-//     implements
-//         Service<
-//             UserDomain,
-//             null,
-//             null
-//         >
-// {
-//     prefix = "/user/";
+class UsersService {
+    prefix = "/api/user/";
 
-//     async create(user: UserDomain): Promise<UserDomain> {
-//         //
-//     }
+    async create(user: UserDomain): Promise<void> {
+        const userToPersistence = UserMapper.toPersistence(user);
 
-//     async find(id: string | number): Promise<UserDomain> {
-//         //
-//     }
+        await HttpClient.post(this.prefix, userToPersistence);
+    }
 
-//     async list(): Promise<UserDomain[]> {
-//         //
-//     }
+    async find(id: string | number): Promise<UserDomain> {
+        const { data } = await HttpClient.get<{ data: UserPersistence }>(
+            this.prefix + id
+        );
 
-//     async update(
-//         id: string | number,
-//         user: UserDomain
-//     ): Promise<UserDomain> {
-//         //
-//     }
+        const userToDomain = UserMapper.toDomain(data.data);
 
-//     async delete(id: string | number): Promise<void> {
-//         //
-//     }
-// }
+        return userToDomain;
+    }
 
-// export default new UsersService();
+    async list(): Promise<UserDomain[]> {
+        const { data } = await HttpClient.get<{ data: UserPersistence[] }>(
+            this.prefix
+        );
+
+        const usersToDomain = data.data.map((user) =>
+            UserMapper.toDomain(user)
+        );
+
+        return usersToDomain;
+    }
+
+    async update(id: string | number, user: UserDomain): Promise<void> {
+        const userToPersistence = UserMapper.toPersistence(user);
+
+        await HttpClient.put(this.prefix + id, userToPersistence);
+    }
+
+    async delete(id: string | number): Promise<void> {
+        await HttpClient.delete(this.prefix + id);
+    }
+}
+
+export default new UsersService();

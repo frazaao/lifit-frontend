@@ -2,6 +2,11 @@ import BodyRegistryDomain from "../types/BodyRegistryDomain";
 import BodyRegistryPersistence from "../types/BodyRegistryPersistence";
 import BodyRegistryMapper from "../mappers/BodyRegistryMapper";
 import HttpClient from "@/libs/HttpClient/axios";
+import PaginationDomain from "@/services/pagination/types/PaginationDomain";
+import PaginationMapper from "@/services/pagination/mappers/PaginationMapper";
+import PaginationPersistence from "@/services/pagination/types/PaginationPersistence";
+import BodyRegistriesFiltersDomain from "../filters/types/BodyRegistriesFiltersDomain";
+import BodyRegistriesFiltersMapper from "../filters/mappers/BodyRegistriesFiltersMapper";
 
 class BodyRegistriesService {
     prefix = "/api/body_registry/";
@@ -35,6 +40,28 @@ class BodyRegistriesService {
         return bodyRegistriesToDomain;
     }
 
+    async listPaginated(
+        filters: BodyRegistriesFiltersDomain
+    ): Promise<PaginationDomain<BodyRegistryDomain[]>> {
+        const filtersToPersistence =
+            BodyRegistriesFiltersMapper.toPersistence(filters);
+
+        const { data } = await HttpClient.get<
+            PaginationPersistence<BodyRegistryPersistence[]>
+        >(this.prefix + "user/", { params: filtersToPersistence });
+
+        const bodyRegistriesToDomain = data.data.map((bodyRegistry) =>
+            BodyRegistryMapper.toDomain(bodyRegistry)
+        );
+
+        const paginationToDomain = PaginationMapper.toDomain(data);
+
+        return {
+            ...paginationToDomain,
+            data: bodyRegistriesToDomain,
+        };
+    }
+
     async listByUserId(userId: string | number): Promise<BodyRegistryDomain[]> {
         const { data } = await HttpClient.get<{
             data: BodyRegistryPersistence[];
@@ -45,6 +72,29 @@ class BodyRegistriesService {
         );
 
         return bodyRegistriesToDomain;
+    }
+
+    async listByUserIdPaginated(
+        userId: string | number,
+        filters: BodyRegistriesFiltersDomain
+    ): Promise<PaginationDomain<BodyRegistryDomain[]>> {
+        const filtersToPersistence =
+            BodyRegistriesFiltersMapper.toPersistence(filters);
+
+        const { data } = await HttpClient.get<
+            PaginationPersistence<BodyRegistryPersistence[]>
+        >(this.prefix + "user/" + userId, { params: filtersToPersistence });
+
+        const bodyRegistriesToDomain = data.data.map((bodyRegistry) =>
+            BodyRegistryMapper.toDomain(bodyRegistry)
+        );
+
+        const paginationToDomain = PaginationMapper.toDomain(data);
+
+        return {
+            ...paginationToDomain,
+            data: bodyRegistriesToDomain,
+        };
     }
 }
 

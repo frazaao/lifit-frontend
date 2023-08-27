@@ -1,6 +1,5 @@
 "use client";
 
-import { AuthContextProvider } from "@/hooks/useAuth";
 import queryClient from "@/libs/QueryClient/ReactQuery";
 import theme from "@/styles/theme";
 import { ChakraProvider, CSSReset } from "@chakra-ui/react";
@@ -15,7 +14,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         <ChakraProvider theme={theme}>
             <CSSReset />
             <QueryClientProvider client={queryClient}>
-                <AuthContextProvider>{children}</AuthContextProvider>
+                {children}
             </QueryClientProvider>
         </ChakraProvider>
     );
