@@ -38,10 +38,11 @@ export default function Pagination<T = null>({
                 {paginationLinks.map((link, index) => (
                     <Button
                         key={index}
-                        color="brand.white"
-                        bg="brand.green"
+                        {...(link.active && {
+                            bg: "brand.green",
+                            color: "brand.white",
+                        })}
                         aria-label={`Página ${link.label}`}
-                        variant={link.active ? "solid" : "ghost"}
                         isDisabled={Number.isNaN(Number(link.label))}
                         onClick={() => setPage(Number(link.label))}
                     >

@@ -1,3 +1,5 @@
+import MealTypePersistence from "../../mealTypes/types/MealTypePersistence";
+import MenuPersistence from "../../menus/types/MenuPersistence";
 import IngredientPersistence from "./IngredientPersistence";
 
 export default interface RecipePersistence {
@@ -12,4 +14,8 @@ export default interface RecipePersistence {
     created_at?: Date;
     updated_at?: Date;
     deleted_at?: Date;
+
+    //Relationships
+    meal_type?: MealTypePersistence;
+    menus?: MenuPersistence[];
 }

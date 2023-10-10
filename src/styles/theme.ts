@@ -10,6 +10,7 @@ const theme = extendTheme({
             white: "#FFFFFF",
             text: "rgba(0,0,0,0.6)",
             heading: "rgba(0,0,0,0.85)",
+            gray: "#E2E8F0",
         },
     },
     fonts: {

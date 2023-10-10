@@ -2,6 +2,10 @@ import AppointmentDomain from "../types/AppointmentDomain";
 import AppointmentPersistence from "../types/AppointmentPersistence";
 import AppointmentMapper from "../mappers/AppointmentMapper";
 import HttpClient from "@/libs/HttpClient/axios";
+import AppointmentsFiltersPersistence from "../filters/types/AppointmentsFiltersPersistence";
+import PaginationDomain from "@/services/pagination/types/PaginationDomain";
+import PaginationPersistence from "@/services/pagination/types/PaginationPersistence";
+import PaginationMapper from "@/services/pagination/mappers/PaginationMapper";
 
 class AppointmentsService {
     prefix = "/api/appointment/";
@@ -32,6 +36,27 @@ class AppointmentsService {
         );
 
         return appointmentsToDomain;
+    }
+
+    async listPaginated(
+        filters?: AppointmentsFiltersPersistence
+    ): Promise<PaginationDomain<AppointmentDomain[]>> {
+        const { data } = await HttpClient.get<
+            PaginationPersistence<AppointmentPersistence[]>
+        >("/api/appointment/", {
+            params: filters,
+        });
+
+        const paginationToDomain = PaginationMapper.toDomain(data);
+
+        const appointmentsToDomain = data.data.map((appointment) =>
+            AppointmentMapper.toDomain(appointment)
+        );
+
+        return {
+            ...paginationToDomain,
+            data: appointmentsToDomain,
+        };
     }
 
     // async update(

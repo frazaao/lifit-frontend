@@ -7,6 +7,6 @@ const unavailabilityZodSchema: z.ZodType<UnavailabilityDomain> = z.object({
     scheduleId: z.coerce.number(),
 });
 
-export default UnavailabilityZodSchema;
+export default unavailabilityZodSchema;
 
 export type UnavailabilityZodSchema = z.infer<typeof unavailabilityZodSchema>;

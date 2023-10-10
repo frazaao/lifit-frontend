@@ -1,5 +1,6 @@
 "use client";
 
+import ShowBodyRegistry from "@/app/app/platform/registries/body/ShowBodyregistry";
 import BodyRegistryTableRow from "@/components/BodyRegistryTableRow";
 import Pagination from "@/components/Pagination";
 import useSearchParams from "@/hooks/useSearchParams";
@@ -15,6 +16,10 @@ import {
     Tbody,
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
+import {
+    useRouter,
+    useSearchParams as useNextSearchParams,
+} from "next/navigation";
 
 interface BodyRegistriesPageProps {
     params: {
@@ -31,13 +36,16 @@ export default function BodyRegistriesPage({
             perPage: 10,
             order: "DESC",
             columnOrder: "id",
+            patientProfileId: Number(params.id),
         });
 
     const { data, isLoading } = useQuery({
-        queryFn: () =>
-            BodyRegistriesService.listByUserIdPaginated(params.id, filters),
-        queryKey: ["ListBodyRegistriesByUserId", params.id],
+        queryFn: () => BodyRegistriesService.listPaginated(filters),
+        queryKey: ["ListBodyRegistriesByUserId", params.id, filters],
     });
+
+    const router = useRouter();
+    const showBodyRegistryIsOpen = useNextSearchParams().get("show") === "true";
 
     return (
         <>
@@ -45,6 +53,19 @@ export default function BodyRegistriesPage({
                 <Card w="full" maxW="900px" size="lg">
                     <CardBody>
                         <Flex>Filters</Flex>
+
+                        {showBodyRegistryIsOpen && (
+                            <ShowBodyRegistry
+                                isOpen={showBodyRegistryIsOpen}
+                                onClose={() =>
+                                    router.push(
+                                        "/admin/dashboard/patients/" +
+                                            params.id +
+                                            "/body-registries"
+                                    )
+                                }
+                            />
+                        )}
 
                         {isLoading ? (
                             <Flex

@@ -1,3 +1,5 @@
+import MealTypeDomain from "../../mealTypes/types/MealTypeDomain";
+import MenuDomain from "../../menus/types/MenuDomain";
 import IngredientDomain from "./IngredientDomain";
 
 export default interface RecipeDomain {
@@ -12,4 +14,8 @@ export default interface RecipeDomain {
     createdAt?: Date;
     updatedAt?: Date;
     deletedAt?: Date;
+
+    //Relationships
+    mealType?: MealTypeDomain;
+    menus?: MenuDomain[];
 }

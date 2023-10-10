@@ -74,7 +74,7 @@ export default function AdminLoginPage() {
                 color="brand.heading"
                 bg="brand.background"
             >
-                <Stack spacing="4" align="center" px="48">
+                <Stack minW="600px" spacing="4" align="center">
                     <Logo />
                     <Box>
                         <Heading fontSize="2xl" textAlign="center">

@@ -11,6 +11,7 @@ import {
     Spinner,
     Stack,
     Text,
+    useMediaQuery,
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
@@ -32,9 +33,16 @@ export default function ShowBodyRegistry({
         queryFn: () => BodyRegistriesService.find(registryId || ""),
     });
 
+    const [isMobile] = useMediaQuery("(max-width: 768px)");
+
     return (
         <>
-            <Drawer isOpen={isOpen} onClose={onClose} placement="bottom">
+            <Drawer
+                isOpen={isOpen}
+                onClose={onClose}
+                placement={isMobile ? "bottom" : "right"}
+                size="md"
+            >
                 <DrawerOverlay />
 
                 <DrawerContent shadow="dark-lg">

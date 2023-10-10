@@ -2,4 +2,6 @@ import DefaultFiltersPersistence from "@/services/filters/types/DefaultFiltersPe
 import BodyRegistryPersistence from "../../types/BodyRegistryPersistence";
 
 export default interface BodyRegistriesFiltersPersistence
-    extends DefaultFiltersPersistence<BodyRegistryPersistence> {}
+    extends DefaultFiltersPersistence<BodyRegistryPersistence> {
+    patient_profile_id?: number;
+}

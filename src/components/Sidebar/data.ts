@@ -14,6 +14,11 @@ const menuData = [
         href: "/admin/dashboard/menus",
         icon: "MenuSquare",
     },
+    {
+        title: "Agenda",
+        href: "/admin/dashboard/schedule",
+        icon: "Calendar",
+    },
 ];
 
 export default menuData;

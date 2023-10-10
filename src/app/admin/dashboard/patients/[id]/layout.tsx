@@ -20,7 +20,7 @@ export default function PatientProfileLayout({
 }: PatientProfileLayoutProps) {
     const { data: patient, isLoading } = useQuery({
         queryFn: () => PatientProfilesService.find(params.id),
-        queryKey: ["FindPatient", params.id],
+        queryKey: ["PatientProfilesService.find", params.id],
     });
 
     if (isLoading) {

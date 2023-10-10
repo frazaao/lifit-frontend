@@ -1,3 +1,5 @@
+import PatientProfilePersistence from "../../patientProfiles/types/PatientProfilePersistence";
+
 export default interface AppointmentPersistence {
     id?: number;
     date: Date;
@@ -10,4 +12,7 @@ export default interface AppointmentPersistence {
     created_at?: Date;
     updated_at?: Date;
     deleted_at?: Date;
+
+    //Relationships
+    patient_profile?: PatientProfilePersistence;
 }

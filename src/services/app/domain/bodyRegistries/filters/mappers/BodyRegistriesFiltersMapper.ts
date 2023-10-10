@@ -11,6 +11,7 @@ class BodyRegistriesFiltersMapper {
         return {
             ...defaultFiltersToDomain,
             columnOrder: filters.column_order,
+            patientProfileId: filters.patient_profile_id,
         };
     }
 
@@ -23,6 +24,7 @@ class BodyRegistriesFiltersMapper {
         return {
             ...defaultFiltersToPersistence,
             column_order: filters.columnOrder,
+            patient_profile_id: filters.patientProfileId,
         };
     }
 }

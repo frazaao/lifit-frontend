@@ -2,6 +2,11 @@ import MealRegistryDomain from "../types/MealRegistryDomain";
 import MealRegistryPersistence from "../types/MealRegistryPersistence";
 import MealRegistryMapper from "../mappers/MealRegistryMapper";
 import HttpClient from "@/libs/HttpClient/axios";
+import MealRegistriesFiltersDomain from "../filters/types/MealRegistriesFiltersDomain";
+import MealRegistriesFiltersMapper from "../filters/mapper/MealRegistriesFiltersMapper";
+import PaginationPersistence from "@/services/pagination/types/PaginationPersistence";
+import PaginationMapper from "@/services/pagination/mappers/PaginationMapper";
+import PaginationDomain from "@/services/pagination/types/PaginationDomain";
 
 class MealRegistriesService {
     prefix = "/api/meal_registry/";
@@ -29,6 +34,28 @@ class MealRegistriesService {
         return data.data.map((mealregistry) =>
             MealRegistryMapper.toDomain(mealregistry)
         );
+    }
+
+    async listPaginated(
+        filters: MealRegistriesFiltersDomain
+    ): Promise<PaginationDomain<MealRegistryDomain[]>> {
+        const filtersToPersistence =
+            MealRegistriesFiltersMapper.toPersistence(filters);
+
+        const { data } = await HttpClient.get<
+            PaginationPersistence<MealRegistryPersistence[]>
+        >(this.prefix, { params: filtersToPersistence });
+
+        const mealRegistriesToDomain = data.data.map((mealregistry) => {
+            return MealRegistryMapper.toDomain(mealregistry);
+        });
+
+        const paginationToDomain = PaginationMapper.toDomain(data);
+
+        return {
+            ...paginationToDomain,
+            data: mealRegistriesToDomain,
+        };
     }
 
     async update(

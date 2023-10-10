@@ -18,6 +18,7 @@ export default function AdminPage() {
                 router.push("/admin/dashboard");
             }
         } catch {
+            router.push("/admin/login");
             setIsLoading(false);
             return;
         }

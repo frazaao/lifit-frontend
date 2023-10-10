@@ -1,4 +1,3 @@
-import RecipeCard from "@/components/RecipeCard";
 import RecipeCardOption from "@/components/RecipeCardOption";
 import MealRegistriesService from "@/services/app/domain/mealRegistries/services/MealRegistriesService";
 import {
@@ -13,6 +12,7 @@ import {
     Spinner,
     Stack,
     Text,
+    useMediaQuery,
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
@@ -32,7 +32,9 @@ export default function ShowMealRegistry({
         MealRegistriesService.find(mealRegistryId || "")
     );
 
-    if (isLoading) {
+    const [isMobile] = useMediaQuery("(max-width: 768px)");
+
+    if (isLoading && isMobile) {
         return (
             <Flex h="full" w="full" align="center" justify="center">
                 <Spinner />
@@ -42,7 +44,12 @@ export default function ShowMealRegistry({
 
     return (
         <>
-            <Drawer isOpen={isOpen} onClose={onClose} placement="bottom">
+            <Drawer
+                isOpen={isOpen}
+                onClose={onClose}
+                placement={isMobile ? "bottom" : "right"}
+                size="md"
+            >
                 <DrawerOverlay />
 
                 <DrawerContent shadow="dark-lg">
@@ -84,7 +91,11 @@ export default function ShowMealRegistry({
                             </Flex>
 
                             <Stack spacing="8" pb="10">
-                                <Flex gap="4" align="flex-start">
+                                <Flex
+                                    direction={isMobile ? "row" : "column"}
+                                    gap={isMobile ? "4" : "8"}
+                                    align="flex-start"
+                                >
                                     <Box flex="1">
                                         <Heading fontSize="md">
                                             Tipo da refeição
@@ -103,7 +114,11 @@ export default function ShowMealRegistry({
                                     </Box>
                                 </Flex>
 
-                                <Flex gap="4" align="flex-start">
+                                <Flex
+                                    direction={isMobile ? "row" : "column"}
+                                    gap={isMobile ? "4" : "8"}
+                                    align="flex-start"
+                                >
                                     <Box flex="1">
                                         <Heading fontSize="md">
                                             Data da refeição
@@ -129,7 +144,11 @@ export default function ShowMealRegistry({
                                     </Box>
                                 </Flex>
 
-                                <Flex gap="4" align="flex-start">
+                                <Flex
+                                    direction={isMobile ? "row" : "column"}
+                                    gap={isMobile ? "4" : "8"}
+                                    align="flex-start"
+                                >
                                     <Box flex="1">
                                         <Heading fontSize="md">Receita</Heading>
                                         <RecipeCardOption

@@ -1,3 +1,5 @@
+import PatientProfileDomain from "../../patientProfiles/types/PatientProfileDomain";
+
 export default interface AppointmentDomain {
     id?: number;
     date: Date;
@@ -10,4 +12,7 @@ export default interface AppointmentDomain {
     createdAt?: Date;
     updatedAt?: Date;
     deletedAt?: Date;
+
+    //Relationships
+    patientProfile?: PatientProfileDomain;
 }
